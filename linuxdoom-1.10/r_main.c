@@ -772,6 +772,7 @@ extern int	screenblocks;
 
 void R_Init (void)
 {
+    printf( "\nEntered R_Init without segfault...");
     R_InitData ();
     printf ("\nR_InitData");
     R_InitPointToAngle ();
