@@ -798,6 +798,11 @@ void D_DoomMain (void)
     int             p;
     char                    file[256];
 
+#ifdef x32
+    printf("DOOM built in x32 mode\n");
+#else
+    printf("DOOM built in x64 mode\n");
+#endif
     FindResponseFile ();
 	
     IdentifyVersion ();
