@@ -1,6 +1,6 @@
 CC = gcc
 
-CFLAGS64 = -w -g -Wall -DNORMALUNIX -DLINUX # -DUSEASM
+CFLAGS64 = -g -Wall -DNORMALUNIX -DLINUX # -DUSEASM
 CFLAGS32 = -m32 $(CFLAGS64) -Dx32
 LDFLAGS =
 LIBS = -lm
@@ -10,7 +10,7 @@ O32 = x86
 O64 = x86_64
 
 # executable name
-E = linuxxdoom
+E = doom
 
 # dependencies (from original doom makefile)
 SRCS =  doomdef.c       \
@@ -94,13 +94,11 @@ x64: $(O64)/$(E)
 
 # 32-bit executable
 $(O32)/$(E): $(OBJS32) $(O32)/i_main.o | $(O32)/.
-	$(CC) $(CFLAGS32) $(LDFLAGS) $(OBJS32) $(O32)/i_main.o \
-	-o $(O32)/$(E) $(LIBS)
+	$(CC) $(CFLAGS32) $(LDFLAGS) $(OBJS32) $(O32)/i_main.o -o $(O32)/$(E) $(LIBS)
 
 # 64-bit executable
 $(O64)/$(E): $(OBJS64) $(O64)/i_main.o | $(O64)/.
-	$(CC) $(CFLAGS64) $(LDFLAGS) $(OBJS64) $(O64)/i_main.o \
-	-o $(O64)/$(E) $(LIBS)
+	$(CC) $(CFLAGS64) $(LDFLAGS) $(OBJS64) $(O64)/i_main.o -o $(O64)/$(E) $(LIBS)
 
 # 32-bit .o files
 $(O32)/%.o: %.c | $(O32)/.
