@@ -443,21 +443,21 @@ void R_InitTextures (void)
     // Load the patch names from pnames.lmp.
     name[8] = 0;	
     names = W_CacheLumpName ("PNAMES", PU_STATIC);
+    dprintf("names data: %x", *names);
     nummappatches = LONG ( *((int *)names) );
+    dprintf("*((int *)names) = %d", *((int *)names));
+    dprintf("LONG(350) = %d", LONG (350));
+    dprintvar(nummappatches, "%d");
     name_p = names+4;
     patchlookup = alloca (nummappatches*sizeof(*patchlookup));
     
-    printf("\n1");
-
     for (i=0 ; i<nummappatches ; i++)
     {
-	strncpy (name,name_p+i*8, 8);
-	patchlookup[i] = W_CheckNumForName (name);
+    	strncpy (name,name_p+i*8, 8);
+    	patchlookup[i] = W_CheckNumForName (name);
     }
     Z_Free (names);
     
-    printf("\n2");
-
     // Load the map texture definitions from textures.lmp.
     // The data is contained in one or two lumps,
     //  TEXTURE1 for shareware, plus TEXTURE2 for commercial.
@@ -466,22 +466,23 @@ void R_InitTextures (void)
     maxoff = W_LumpLength (W_GetNumForName ("TEXTURE1"));
     directory = maptex+1;
 	
-    printf("\n3");
-
     if (W_CheckNumForName ("TEXTURE2") != -1)
     {
-	maptex2 = W_CacheLumpName ("TEXTURE2", PU_STATIC);
-	numtextures2 = LONG(*maptex2);
-	maxoff2 = W_LumpLength (W_GetNumForName ("TEXTURE2"));
+    	maptex2 = W_CacheLumpName ("TEXTURE2", PU_STATIC);
+    	numtextures2 = LONG(*maptex2);
+    	maxoff2 = W_LumpLength (W_GetNumForName ("TEXTURE2"));
     }
     else
     {
-	maptex2 = NULL;
-	numtextures2 = 0;
-	maxoff2 = 0;
+    	maptex2 = NULL;
+    	numtextures2 = 0;
+    	maxoff2 = 0;
     }
+
+    dprintvar(numtextures2, "%d");
+
     numtextures = numtextures1 + numtextures2;
-	
+
     textures = Z_Malloc (numtextures*4, PU_STATIC, 0);
     texturecolumnlump = Z_Malloc (numtextures*4, PU_STATIC, 0);
     texturecolumnofs = Z_Malloc (numtextures*4, PU_STATIC, 0);
@@ -492,8 +493,6 @@ void R_InitTextures (void)
 
     totalwidth = 0;
     
-    printf("\n4");
-
     //	Really complex printing shit...
     temp1 = W_GetNumForName ("S_START");  // P_???????
     temp2 = W_GetNumForName ("S_END") - 1;
@@ -647,7 +646,11 @@ void R_InitColormaps (void)
     lump = W_GetNumForName("COLORMAP"); 
     length = W_LumpLength (lump) + 255; 
     colormaps = Z_Malloc (length, PU_STATIC, 0); 
+#ifdef x32
     colormaps = (byte *)( ((int)colormaps + 255)&~0xff); 
+#else
+    colormaps = (byte *)( ((intptr_t)colormaps + 255)&~0xff); 
+#endif
     W_ReadLump (lump,colormaps); 
 }
 

@@ -39,6 +39,7 @@ unsigned short SwapSHORT(unsigned short x)
 }
 
 // Swapping 32bit.
+#ifdef x32
 unsigned long SwapLONG( unsigned long x)
 {
     return
@@ -47,6 +48,16 @@ unsigned long SwapLONG( unsigned long x)
 	| ((x<<8) & 0xff0000)
 	| (x<<24);
 }
+#else
+unsigned int SwapLONG( unsigned int x)
+{
+    return
+	(x>>24)
+	| ((x>>8) & 0xff00)
+	| ((x<<8) & 0xff0000)
+	| (x<<24);
+}
+#endif
 
 
 #endif

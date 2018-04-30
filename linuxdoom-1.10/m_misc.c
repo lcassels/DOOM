@@ -389,8 +389,13 @@ void M_LoadDefaults (void)
 			if (!isstring)
 			    *defaults[i].location = parm;
 			else
-			    *defaults[i].location =
-				(int) newstring;
+#ifdef x32
+                *defaults[i].location =
+                (int) newstring;
+#else
+                *defaults[i].location =
+                (intptr_t) newstring;
+#endif
 			break;
 		    }
 	    }

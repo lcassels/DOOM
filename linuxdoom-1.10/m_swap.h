@@ -33,9 +33,21 @@
 // WAD files are stored little endian.
 #ifdef __BIG_ENDIAN__
 short	SwapSHORT(short);
+
+#ifdef x32
 long	SwapLONG(long);
+#else
+int		SwapLONG(int);
+#endif
+
 #define SHORT(x)	((short)SwapSHORT((unsigned short) (x)))
+
+#ifdef x32
 #define LONG(x)         ((long)SwapLONG((unsigned long) (x)))
+#else
+#define LONG(x)         ((int)SwapLONG((unsigned int) (x)))
+#endif
+
 #else
 #define SHORT(x)	(x)
 #define LONG(x)         (x)

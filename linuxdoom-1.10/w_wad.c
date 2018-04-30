@@ -463,7 +463,7 @@ W_ReadLump
 }
 
 
-
+int last_lump = -1;
 
 //
 // W_CacheLumpNum
@@ -476,20 +476,27 @@ W_CacheLumpNum
     byte*	ptr;
 
     if ((unsigned)lump >= numlumps)
-	I_Error ("W_CacheLumpNum: %i >= numlumps",lump);
+	   I_Error ("W_CacheLumpNum: %i >= numlumps",lump);
 		
     if (!lumpcache[lump])
     {
-	// read the lump in
-	
-	//printf ("cache miss on lump %i\n",lump);
-	ptr = Z_Malloc (W_LumpLength (lump), tag, &lumpcache[lump]);
-	W_ReadLump (lump, lumpcache[lump]);
+    	// if (last_lump != lump)
+     //    {
+    	//    printf ("\ncache miss on lump %i",lump);
+     //       last_lump = lump;
+     //    }
+        // read the lump in
+    	ptr = Z_Malloc (W_LumpLength (lump), tag, &lumpcache[lump]);
+    	W_ReadLump (lump, lumpcache[lump]);
     }
     else
     {
-	//printf ("cache hit on lump %i\n",lump);
-	Z_ChangeTag (lumpcache[lump],tag);
+        // if (last_lump != lump)
+        // {
+    	   // printf ("\ncache hit on lump %i",lump);
+        //    last_lump = lump;
+        // }
+    	Z_ChangeTag (lumpcache[lump],tag);
     }
 	
     return lumpcache[lump];
