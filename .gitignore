@@ -22,7 +22,7 @@ a.out
 core*
 debuglog.txt
 *.wad
-doom_log.txt
+doom_log*
 linuxdoom-1.10/*/*
 log.txt
 obj

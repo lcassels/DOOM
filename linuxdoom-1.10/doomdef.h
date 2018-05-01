@@ -34,13 +34,20 @@ enum { VERSION =  110 };
 
 
 // debug functions for porting
-#define dprintf(fmt, args...)             \
-    fprintf(stdout, "\n%s:%d::%s(): " fmt,  \
+#define dprintf(fmt, args...)                   \
+    fprintf(stderr, "\n*** %s:%d::%s(): " fmt,  \
     __FILE__, __LINE__, __func__, ##args)
 
-#define dprintvar(v, f)                           \
-    fprintf(stdout, "\n%s:%d::%s(): '%s' = "f,  \
+#define dprintv(v, f)                               \
+    fprintf(stderr, "\n*** %s:%d::%s(): %s = "f,  \
     __FILE__, __LINE__, __func__, #v, v)
+
+#define dprintvp(p, f)                        \
+    if (p)                                    \
+      dprintv(*p, f);                         \
+    else                                      \
+      dprintf("*%s = [null deref]", #p);
+
 
 #ifndef x32
 #include <stddef.h>

@@ -88,7 +88,7 @@ clean:
 x32: $(O32)/$(E)
 x64: $(O64)/$(E)
 
-# recipe for ensuring sure a directory exists
+# recipe for ensuring a directory exists
 %/.:
 	@mkdir -p $@
 

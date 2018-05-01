@@ -801,6 +801,13 @@ void D_DoomMain (void)
 #else
     printf("DOOM built in x64 mode\n");
 #endif
+    dprintv(sizeof(short), "%d");
+    dprintv(sizeof(int), "%d");
+    dprintv(sizeof(long), "%d");
+    dprintv(sizeof(void*), "%d");
+    dprintv(sizeof(byte), "%d");
+    fprintf(stderr, "\n");
+
     FindResponseFile ();
 	
     IdentifyVersion ();

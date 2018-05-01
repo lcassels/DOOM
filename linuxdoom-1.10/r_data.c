@@ -83,7 +83,11 @@ typedef struct
     boolean		masked;	
     short		width;
     short		height;
-    void		**columndirectory;	// OBSOLETE
+#ifdef x32
+    void        **columndirectory;    // OBSOLETE
+#else
+    unsigned int  columndirectory;    // match the 4 byte size
+#endif
     short		patchcount;
     mappatch_t	patches[1];
 } maptexture_t;
@@ -440,6 +444,12 @@ void R_InitTextures (void)
 
     printf("\nRunning R_InitTextures");
     
+    dprintv(sizeof(maptexture_t), "%d");
+    dprintv(sizeof(texture_t), "%d");
+    dprintv(sizeof(mappatch_t), "%d");
+    dprintv(sizeof(texpatch_t), "%d");
+    fprintf(stderr, "\n");
+
     // Load the patch names from pnames.lmp.
     name[8] = 0;	
     names = W_CacheLumpName ("PNAMES", PU_STATIC);
@@ -447,7 +457,7 @@ void R_InitTextures (void)
     nummappatches = LONG ( *((int *)names) );
     dprintf("*((int *)names) = %d", *((int *)names));
     dprintf("LONG(350) = %d", LONG (350));
-    dprintvar(nummappatches, "%d");
+    dprintv(nummappatches, "%d");
     name_p = names+4;
     patchlookup = alloca (nummappatches*sizeof(*patchlookup));
     
@@ -479,7 +489,7 @@ void R_InitTextures (void)
     	maxoff2 = 0;
     }
 
-    dprintvar(numtextures2, "%d");
+    dprintv(numtextures2, "%d");
 
     numtextures = numtextures1 + numtextures2;
 
@@ -508,6 +518,9 @@ void R_InitTextures (void)
     printf("\nbefore loop");
 
     for (i=0 ; i<numtextures ; i++, directory++) {
+        fprintf(stderr, "\n");
+        dprintf("LOOP i=%d directory=%p:", i, directory);
+
     	if (!(i&63))
     	    printf (".");
 
@@ -518,7 +531,10 @@ void R_InitTextures (void)
     	    maxoff = maxoff2;
     	    directory = maptex+1;
     	}
-    		
+    	
+        if (i == 14)
+            dprintf("survived");
+
     	offset = LONG(*directory);
 
     	if (offset > maxoff)
@@ -531,6 +547,9 @@ void R_InitTextures (void)
     		      + sizeof(texpatch_t)*(SHORT(mtexture->patchcount)-1),
     		      PU_STATIC, 0);
     	
+        if (i == 14)
+            dprintf("survived");
+
     	texture->width = SHORT(mtexture->width);
     	texture->height = SHORT(mtexture->height);
     	texture->patchcount = SHORT(mtexture->patchcount);
@@ -539,6 +558,19 @@ void R_InitTextures (void)
     	mpatch = &mtexture->patches[0];
     	patch = &texture->patches[0];
 
+        if (i == 14)
+            dprintf("survived");
+
+        dprintvp(texture, "%x");
+        if (texture)
+        {
+            dprintv(texture->name, "%s");
+            dprintv(texture->width, "%d");
+            dprintv(texture->height, "%d");
+            dprintv(texture->patchcount, "%d");
+        }
+        dprintvp(mpatch, "%x");
+        dprintvp(patch, "%x");
     	for (j=0 ; j<texture->patchcount ; j++, mpatch++, patch++)
     	{
     	    patch->originx = SHORT(mpatch->originx);
@@ -549,7 +581,11 @@ void R_InitTextures (void)
     		I_Error ("R_InitTextures: Missing patch in texture %s",
     			 texture->name);
     	    }
-    	}		
+    	}
+
+        if (i == 14)
+            dprintf("survived");
+
     	texturecolumnlump[i] = Z_Malloc (texture->width*2, PU_STATIC,0);
     	texturecolumnofs[i] = Z_Malloc (texture->width*2, PU_STATIC,0);
 
@@ -561,6 +597,30 @@ void R_InitTextures (void)
     	textureheight[i] = texture->height<<FRACBITS;
     		
     	totalwidth += texture->width;
+
+        dprintvp(maptex, "%d");
+        dprintvp(maptex2, "%d");
+        dprintvp(maptex1, "%d");
+
+        dprintv(name, "%s");
+        dprintv(names, "%s");
+        dprintv(name_p, "%s");
+
+        dprintvp(patchlookup, "%d");
+
+        dprintv(totalwidth, "%d");
+        dprintv(nummappatches, "%d");
+        dprintv(offset, "%d");
+        dprintv(maxoff, "%d");
+        dprintv(maxoff2, "%d");
+        dprintv(numtextures1, "%d");
+        dprintv(numtextures2, "%d");
+
+        dprintvp(directory, "%d");
+
+        dprintv(temp1, "%d");
+        dprintv(temp2, "%d");
+        dprintv(temp3, "%d");
     }
 
     printf("\nafter loop");
