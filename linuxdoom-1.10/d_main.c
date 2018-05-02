@@ -804,6 +804,7 @@ void D_DoomMain (void)
     dprintv(sizeof(short), "%d");
     dprintv(sizeof(int), "%d");
     dprintv(sizeof(long), "%d");
+    dprintv(sizeof(unsigned), "%d");
     dprintv(sizeof(void*), "%d");
     dprintv(sizeof(byte), "%d");
     fprintf(stderr, "\n");

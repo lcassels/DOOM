@@ -1,6 +1,35 @@
 CC = gcc
 
-CFLAGS64 = -g -Wall -DNORMALUNIX -DLINUX
+WARNINGS =	-Waddress                      		\
+          	-Warray-bounds                 		\
+          	-Wchar-subscripts              		\
+          	-Wenum-compare                 		\
+          	-Wimplicit-int                 		\
+          	-Wimplicit-function-declaration		\
+          	-Wcomment                      		\
+          	-Wformat=0                    		\
+          	-Wmain                         		\
+          	-Wmissing-braces               		\
+          	-Wnonnull                      		\
+          	-Wparentheses                  		\
+          	-Wpointer-sign                 		\
+          	-Wreturn-type                  		\
+          	-Wsequence-point               		\
+          	-Wsign-compare                 		\
+          	-Wstrict-aliasing              		\
+          	-Wstrict-overflow=1            		\
+          	-Wswitch                       		\
+          	-Wtrigraphs                    		\
+          	-Wuninitialized                		\
+          	-Wunknown-pragmas              		\
+          	-Wunused-function              		\
+          	-Wunused-label                 		\
+          	-Wunused-value                 		\
+          	-Wunused-variable              		\
+          	-Wvolatile-register-var
+
+
+CFLAGS64 = -g $(WARNINGS) -DNORMALUNIX -DLINUX
 CFLAGS32 = -w -m32 $(CFLAGS64) -Dx32
 LDFLAGS =
 LIBS = -lm

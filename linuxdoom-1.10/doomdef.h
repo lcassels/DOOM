@@ -48,6 +48,8 @@ enum { VERSION =  110 };
     else                                      \
       dprintf("*%s = [null deref]", #p);
 
+#define dpulse() dprintf("got here")
+
 
 #ifndef x32
 #include <stddef.h>
