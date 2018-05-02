@@ -34,12 +34,12 @@ enum { VERSION =  110 };
 
 
 // debug functions for porting
-#define dprintf(fmt, args...)                   \
-    fprintf(stderr, "\n*** %s:%d::%s(): " fmt,  \
+#define dprintf(fmt, args...)                     \
+    fprintf(stderr, "*** %s:%d::%s(): "fmt"\n",   \
     __FILE__, __LINE__, __func__, ##args)
 
 #define dprintv(v, f)                               \
-    fprintf(stderr, "\n*** %s:%d::%s(): %s = "f,  \
+    fprintf(stderr, "*** %s:%d::%s(): %s = "f"\n",  \
     __FILE__, __LINE__, __func__, #v, v)
 
 #define dprintvp(p, f)                        \
@@ -49,6 +49,7 @@ enum { VERSION =  110 };
       dprintf("*%s = [null deref]", #p);
 
 #define dpulse() dprintf("got here")
+#define dnewline() fprintf(stderr, "\n")
 
 
 #ifndef x32

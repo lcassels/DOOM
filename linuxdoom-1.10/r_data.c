@@ -306,6 +306,9 @@ void R_GenerateLookup (int texnum)
     short*		collump;
     unsigned short*	colofs;
 	
+    dnewline();
+    dprintv(texnum, "%d");
+
     texture = textures[texnum];
 
     // Composited texture not created yet.
@@ -315,6 +318,9 @@ void R_GenerateLookup (int texnum)
     collump = texturecolumnlump[texnum];
     colofs = texturecolumnofs[texnum];
     
+    dprintvp(collump, "%d");
+    dprintvp(colofs, "%u");
+
     // Now count the number of columns
     //  that are covered by more than one patch.
     // Fill in the lump / offset, so columns
@@ -323,53 +329,57 @@ void R_GenerateLookup (int texnum)
     memset (patchcount, 0, texture->width);
     patch = texture->patches;
 		
-    for (i=0 , patch = texture->patches;
-	 i<texture->patchcount;
-	 i++, patch++)
-    {
-	realpatch = W_CacheLumpNum (patch->patch, PU_CACHE);
-	x1 = patch->originx;
-	x2 = x1 + SHORT(realpatch->width);
-	
-	if (x1 < 0)
-	    x = 0;
-	else
-	    x = x1;
+    dprintvp(patchcount, "%d");
 
-	if (x2 > texture->width)
-	    x2 = texture->width;
-	for ( ; x<x2 ; x++)
-	{
-	    patchcount[x]++;
-	    collump[x] = patch->patch;
-	    colofs[x] = LONG(realpatch->columnofs[x-x1])+3;
-	}
+    for (i=0 , patch = texture->patches;
+    	 i<texture->patchcount;
+    	 i++, patch++)
+    {
+    	realpatch = W_CacheLumpNum (patch->patch, PU_CACHE);
+    	x1 = patch->originx;
+    	x2 = x1 + SHORT(realpatch->width);
+    	
+    	if (x1 < 0)
+    	    x = 0;
+    	else
+    	    x = x1;
+
+    	if (x2 > texture->width)
+    	    x2 = texture->width;
+    	for ( ; x<x2 ; x++)
+    	{
+    	    patchcount[x]++;
+    	    collump[x] = patch->patch;
+    	    colofs[x] = LONG(realpatch->columnofs[x-x1])+3;
+    	}
     }
 	
+    dpulse();
+
     for (x=0 ; x<texture->width ; x++)
     {
-	if (!patchcount[x])
-	{
-	    printf ("R_GenerateLookup: column without a patch (%s)\n",
-		    texture->name);
-	    return;
-	}
-	// I_Error ("R_GenerateLookup: column without a patch");
-	
-	if (patchcount[x] > 1)
-	{
-	    // Use the cached block.
-	    collump[x] = -1;	
-	    colofs[x] = texturecompositesize[texnum];
-	    
-	    if (texturecompositesize[texnum] > 0x10000-texture->height)
-	    {
-		I_Error ("R_GenerateLookup: texture %i is >64k",
-			 texnum);
-	    }
-	    
-	    texturecompositesize[texnum] += texture->height;
-	}
+    	if (!patchcount[x])
+    	{
+    	    printf ("R_GenerateLookup: column without a patch (%s)\n",
+    		    texture->name);
+    	    return;
+    	}
+    	// I_Error ("R_GenerateLookup: column without a patch");
+    	
+    	if (patchcount[x] > 1)
+    	{
+    	    // Use the cached block.
+    	    collump[x] = -1;	
+    	    colofs[x] = texturecompositesize[texnum];
+    	    
+    	    if (texturecompositesize[texnum] > 0x10000-texture->height)
+    	    {
+        		I_Error ("R_GenerateLookup: texture %i is >64k",
+        			texnum);
+    	    }
+    	    
+    	    texturecompositesize[texnum] += texture->height;
+    	}
     }	
 }
 
@@ -568,32 +578,23 @@ void R_InitTextures (void)
     	totalwidth += texture->width;
     }
 
-    dpulse();
-
     Z_Free (maptex1);
-    dpulse();
     if (maptex2)
-	   Z_Free (maptex2);
+	    Z_Free (maptex2);
     
-    dpulse();
-
     // Precalculate whatever possible.	
     for (i=0 ; i<numtextures ; i++)
-	   R_GenerateLookup (i);
+    {
+        R_GenerateLookup (i);
+    }
     
-    dpulse();
-
     // Create translation table for global animation.
     texturetranslation = Z_Malloc ((numtextures+1)*4, PU_STATIC, 0);
     
-    dpulse();
-
     for (i=0 ; i<numtextures ; i++)
 	   texturetranslation[i] = i;
 
-    dpulse();
-
-    dprintf("Passed R_InitTextures");
+    dprintf("passed R_InitTextures");
 }
 
 
