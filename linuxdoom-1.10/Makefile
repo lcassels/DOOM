@@ -31,8 +31,8 @@ WARNINGS =	-Waddress                      		\
 
 CFLAGS64 = -g $(WARNINGS) -DNORMALUNIX -DLINUX
 CFLAGS32 = -w -m32 $(CFLAGS64) -Dx32
-LDFLAGS =
-LIBS = -lm
+LDFLAGS = -L/usr/X11R6/lib
+LIBS = -lXext -lX11 -lnsl -lm
 
 # build directories
 O32 = x86
