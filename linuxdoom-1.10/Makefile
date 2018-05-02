@@ -118,10 +118,10 @@ x32: $(O32)/$(E)
 x64: $(O64)/$(E)
 
 # 256-color x11 launcher
-run64: x64
-	xinit '$(shell pwd)/$(O64)/$(E)' -- $(shell which Xephyr) :1 -screen 320x200x8 -br -reset -terminate
 run32: x32
 	xinit '$(shell pwd)/$(O32)/$(E)' -- $(shell which Xephyr) :1 -screen 320x200x8 -br -reset -terminate
+run64: x64
+	xinit '$(shell pwd)/$(O64)/$(E)' -- $(shell which Xephyr) :1 -screen 320x200x8 -br -reset -terminate
 
 
 # recipe for ensuring a directory exists
