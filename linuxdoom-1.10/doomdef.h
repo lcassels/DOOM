@@ -58,6 +58,8 @@ enum { VERSION =  110 };
 typedef ptrdiff_t intptr_t;
 #endif
 
+#define ptrsz sizeof(void*)
+
 // Game mode handling - identify IWAD version
 //  to handle IWAD dependend animations etc.
 typedef enum

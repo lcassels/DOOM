@@ -305,9 +305,7 @@ void R_GenerateLookup (int texnum)
     int			i;
     short*		collump;
     unsigned short*	colofs;
-	
-    dnewline();
-    dprintv(texnum, "%d");
+
 
     texture = textures[texnum];
 
@@ -317,9 +315,6 @@ void R_GenerateLookup (int texnum)
     texturecompositesize[texnum] = 0;
     collump = texturecolumnlump[texnum];
     colofs = texturecolumnofs[texnum];
-    
-    dprintvp(collump, "%d");
-    dprintvp(colofs, "%u");
 
     // Now count the number of columns
     //  that are covered by more than one patch.
@@ -328,8 +323,6 @@ void R_GenerateLookup (int texnum)
     patchcount = (byte *)alloca (texture->width);
     memset (patchcount, 0, texture->width);
     patch = texture->patches;
-		
-    dprintvp(patchcount, "%d");
 
     for (i=0 , patch = texture->patches;
     	 i<texture->patchcount;
@@ -354,8 +347,6 @@ void R_GenerateLookup (int texnum)
     	}
     }
 	
-    dpulse();
-
     for (x=0 ; x<texture->width ; x++)
     {
     	if (!patchcount[x])
@@ -497,13 +488,13 @@ void R_InitTextures (void)
 
     numtextures = numtextures1 + numtextures2;
 
-    textures = Z_Malloc (numtextures*4, PU_STATIC, 0);
-    texturecolumnlump = Z_Malloc (numtextures*4, PU_STATIC, 0);
-    texturecolumnofs = Z_Malloc (numtextures*4, PU_STATIC, 0);
-    texturecomposite = Z_Malloc (numtextures*4, PU_STATIC, 0);
-    texturecompositesize = Z_Malloc (numtextures*4, PU_STATIC, 0);
-    texturewidthmask = Z_Malloc (numtextures*4, PU_STATIC, 0);
-    textureheight = Z_Malloc (numtextures*4, PU_STATIC, 0);
+    textures = Z_Malloc (numtextures*ptrsz, PU_STATIC, 0);
+    texturecolumnlump = Z_Malloc (numtextures*ptrsz, PU_STATIC, 0);
+    texturecolumnofs = Z_Malloc (numtextures*ptrsz, PU_STATIC, 0);
+    texturecomposite = Z_Malloc (numtextures*ptrsz, PU_STATIC, 0);
+    texturecompositesize = Z_Malloc (numtextures*ptrsz, PU_STATIC, 0);
+    texturewidthmask = Z_Malloc (numtextures*ptrsz, PU_STATIC, 0);
+    textureheight = Z_Malloc (numtextures*ptrsz, PU_STATIC, 0);
 
     totalwidth = 0;
     
