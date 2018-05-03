@@ -28,6 +28,8 @@
 #include "d_main.h"
 
 void process_main(int argc, char** argv) {
+	sys_kdisplay(KDISPLAY_NONE);
+
     myargc = argc;
     myargv = argv;
 
