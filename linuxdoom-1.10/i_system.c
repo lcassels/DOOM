@@ -43,7 +43,6 @@
 #include "i_system.h"
 
 #include "p-lib.hh"
-int stderr = 2;
 
 
 
@@ -165,7 +164,7 @@ void I_Error (char *error, ...)
 
     // Message first.
     va_start (argptr,error);
-    fprintf (stderr, "Error: ");
+    fprintf(stderr, "Error: ");
     vfprintf (stderr,error,argptr);
     fprintf (stderr, "\n");
     va_end (argptr);

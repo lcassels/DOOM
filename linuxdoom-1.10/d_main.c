@@ -197,7 +197,7 @@ void D_Display (void)
     static  boolean		menuactivestate = false;
     static  boolean		inhelpscreensstate = false;
     static  boolean		fullscreen = false;
-    static  gamestate_t		oldgamestate = -1;
+    static  gamestate_t		oldgamestate = (gamestate_t) -1;
     static  int			borderdrawcount;
     int				nowtime;
     int				tics;
@@ -216,7 +216,7 @@ void D_Display (void)
     if (setsizeneeded)
     {
 	R_ExecuteSetViewSize ();
-	oldgamestate = -1;                      // force background redraw
+	oldgamestate = (gamestate_t) -1;                      // force background redraw
 	borderdrawcount = 3;
     }
 
@@ -273,7 +273,7 @@ void D_Display (void)
 
     // clean up border stuff
     if (gamestate != oldgamestate && gamestate != GS_LEVEL)
-	I_SetPalette (W_CacheLumpName ("PLAYPAL",PU_CACHE));
+	I_SetPalette (reinterpret_cast<byte*>(W_CacheLumpName ("PLAYPAL",PU_CACHE)));
 
     // see if the border needs to be initially drawn
     if (gamestate == GS_LEVEL && oldgamestate != GS_LEVEL)
@@ -308,7 +308,7 @@ void D_Display (void)
 	else
 	    y = viewwindowy+4;
 	V_DrawPatchDirect(viewwindowx+(scaledviewwidth-68)/2,
-			  y,0,W_CacheLumpName ("M_PAUSE", PU_CACHE));
+			  y,0,reinterpret_cast<patch_t*>(W_CacheLumpName ("M_PAUSE", PU_CACHE)));
     }
 
 
@@ -397,12 +397,12 @@ void D_DoomLoop (void)
 
 #ifndef SNDSERV
 	// Sound mixing for the buffer is snychronous.
-	I_UpdateSound();
+	// I_UpdateSound();
 #endif
 	// Synchronous sound output is explicitly called.
 #ifndef SNDINTR
 	// Update sound output.
-	I_SubmitSound();
+	// I_SubmitSound();
 #endif
     }
 }
@@ -434,7 +434,7 @@ void D_PageTicker (void)
 //
 void D_PageDrawer (void)
 {
-    V_DrawPatch (0,0, 0, W_CacheLumpName(pagename, PU_CACHE));
+    V_DrawPatch (0,0, 0, reinterpret_cast<patch_t*>(W_CacheLumpName(pagename, PU_CACHE)));
 }
 
 
@@ -474,10 +474,10 @@ void D_AdvanceDemo (void)
 	    pagetic = 170;
 	gamestate = GS_DEMOSCREEN;
 	pagename = "TITLEPIC";
-	if ( gamemode == commercial )
-	  S_StartMusic(mus_dm2ttl);
-	else
-	  S_StartMusic (mus_intro);
+	// if ( gamemode == commercial )
+	//   // S_StartMusic(mus_dm2ttl);
+	// else
+	//   // S_StartMusic (mus_intro);
 	break;
       case 1:
 	G_DeferedPlayDemo ("demo1");
@@ -496,7 +496,7 @@ void D_AdvanceDemo (void)
 	{
 	    pagetic = 35 * 11;
 	    pagename = "TITLEPIC";
-	    S_StartMusic(mus_dm2ttl);
+	    // S_StartMusic(mus_dm2ttl);
 	}
 	else
 	{
@@ -728,7 +728,7 @@ void FindResponseFile (void)
     for (i = 1;i < myargc;i++)
 	if (myargv[i][0] == '@')
 	{
-	    FILE *          handle;
+	    int          handle; // WAS A FILE*
 	    int             size;
 	    int             k;
 	    int             index;
@@ -758,8 +758,8 @@ void FindResponseFile (void)
 		moreargs[index++] = myargv[k];
 
 	    firstargv = myargv[0];
-	    myargv = malloc(sizeof(char *)*MAXARGVS);
-	    memset(myargv,0,sizeof(char *)*MAXARGVS);
+	    myargv = reinterpret_cast<char**>(malloc(sizeof(char *) * MAXARGVS));
+	    memset(myargv,0,sizeof(char *) * MAXARGVS);
 	    myargv[0] = firstargv;
 
 	    infile = file;
@@ -981,7 +981,7 @@ void D_DoomMain (void)
     p = M_CheckParm ("-skill");
     if (p && p < myargc-1)
     {
-	startskill = myargv[p+1][0]-'1';
+	startskill = static_cast<skill_t>(myargv[p+1][0]-'1');
 	autostart = true;
     }
 
@@ -1036,29 +1036,29 @@ void D_DoomMain (void)
 
 
     // Check for -file in shareware
-    if (modifiedgame)
-    {
-	// These are the lumps that will be checked in IWAD,
-	// if any one is not present, execution will be aborted.
-	char name[23][8]=
-	{
-	    "e2m1","e2m2","e2m3","e2m4","e2m5","e2m6","e2m7","e2m8","e2m9",
-	    "e3m1","e3m3","e3m3","e3m4","e3m5","e3m6","e3m7","e3m8","e3m9",
-	    "dphoof","bfgga0","heada1","cybra1","spida1d1"
-	};
-	int i;
+ //    if (modifiedgame)
+ //    {
+	// // These are the lumps that will be checked in IWAD,
+	// // if any one is not present, execution will be aborted.
+	// char name[23][8]=
+	// {
+	//     "e2m1","e2m2","e2m3","e2m4","e2m5","e2m6","e2m7","e2m8","e2m9",
+	//     "e3m1","e3m3","e3m3","e3m4","e3m5","e3m6","e3m7","e3m8","e3m9",
+	//     "dphoof","bfgga0","heada1","cybra1","spida1d1"
+	// };
+	// int i;
 
-	if ( gamemode == shareware)
-	    I_Error("\nYou cannot -file with the shareware "
-		    "version. Register!");
+	// if ( gamemode == shareware)
+	//     I_Error("\nYou cannot -file with the shareware "
+	// 	    "version. Register!");
 
-	// Check for fake IWAD with right name,
-	// but w/o all the lumps of the registered version.
-	if (gamemode == registered)
-	    for (i = 0;i < 23; i++)
-		if (W_CheckNumForName(name[i])<0)
-		    I_Error("\nThis is not the registered version.");
-    }
+	// // Check for fake IWAD with right name,
+	// // but w/o all the lumps of the registered version.
+	// if (gamemode == registered)
+	//     for (i = 0;i < 23; i++)
+	// 	if (W_CheckNumForName(name[i])<0)
+	// 	    I_Error("\nThis is not the registered version.");
+ //    }
 
     // Iff additonal PWAD files are used, print modified banner
     if (modifiedgame)
