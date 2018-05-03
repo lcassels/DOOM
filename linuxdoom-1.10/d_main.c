@@ -1025,6 +1025,8 @@ void D_DoomMain (void)
     printf ("V_Init: allocate screens.\n");
     V_Init ();
 
+    sys_log_printf("Vinit successful\n");
+
     printf ("M_LoadDefaults: Load system defaults.\n");
     M_LoadDefaults ();              // load before initing other systems
 
