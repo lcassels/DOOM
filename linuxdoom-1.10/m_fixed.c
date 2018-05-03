@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -22,7 +22,7 @@
 //-----------------------------------------------------------------------------
 
 
-#include "stdlib.h"
+// #include "stdlib.h"
 
 #include "doomtype.h"
 #include "i_system.h"
@@ -32,6 +32,7 @@
 #endif
 #include "m_fixed.h"
 
+#include "p-lib.hh"
 
 
 

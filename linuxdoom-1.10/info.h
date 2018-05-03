@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -26,6 +26,7 @@
 
 // Needed for action function pointer handling.
 #include "d_think.h"
+#include "info.h"
 
 typedef enum
 {
@@ -1305,7 +1306,7 @@ typedef enum {
 typedef struct
 {
     int	doomednum;
-    int	spawnstate;
+    statenum_t	spawnstate;
     int	spawnhealth;
     int	seestate;
     int	seesound;
@@ -1316,7 +1317,7 @@ typedef struct
     int	painsound;
     int	meleestate;
     int	missilestate;
-    int	deathstate;
+    statenum_t	deathstate;
     int	xdeathstate;
     int	deathsound;
     int	speed;

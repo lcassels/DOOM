@@ -23,14 +23,14 @@
 
 
 #ifdef NORMALUNIX
-#include <ctype.h>
+// #include <ctype.h>
 #include <sys/types.h>
-#include <string.h>
-#include <unistd.h>
-#include <malloc.h>
+// #include <string.h>
+// #include <unistd.h>
+// #include <malloc.h>
 #include <fcntl.h>
 #include <sys/stat.h>
-#include <alloca.h>
+// #include <alloca.h>
 #define O_BINARY		0
 #endif
 
@@ -44,7 +44,7 @@
 #endif
 #include "w_wad.h"
 
-
+#include "p-lib.hh"
 
 
 
@@ -192,7 +192,7 @@ void W_AddFile (char *filename)
 	header.numlumps = LONG(header.numlumps);
 	header.infotableofs = LONG(header.infotableofs);
 	length = header.numlumps*sizeof(filelump_t);
-	fileinfo = alloca (length);
+	fileinfo = (filelump_t*) alloca (length);
 	lseek (handle, header.infotableofs, SEEK_SET);
 	read (handle, fileinfo, length);
 	numlumps += header.numlumps;
@@ -200,7 +200,7 @@ void W_AddFile (char *filename)
 
 
     // Fill in lumpinfo
-    lumpinfo = realloc (lumpinfo, numlumps*sizeof(lumpinfo_t));
+    lumpinfo = (lumpinfo_t*) realloc ((char*) lumpinfo, numlumps*sizeof(lumpinfo_t));
 
     if (!lumpinfo)
 	I_Error ("Couldn't realloc lumpinfo");
@@ -249,7 +249,7 @@ void W_Reload (void)
     lumpcount = LONG(header.numlumps);
     header.infotableofs = LONG(header.infotableofs);
     length = lumpcount*sizeof(filelump_t);
-    fileinfo = alloca (length);
+    fileinfo = (filelump_t*) alloca (length);
     lseek (handle, header.infotableofs, SEEK_SET);
     read (handle, fileinfo, length);
 
@@ -293,7 +293,7 @@ void W_InitMultipleFiles (char** filenames)
     numlumps = 0;
 
     // will be realloced as lumps are added
-    lumpinfo = malloc(1);
+    lumpinfo = (lumpinfo_t*) malloc(1);
 
     for ( ; *filenames ; filenames++)
 	W_AddFile (*filenames);
@@ -303,7 +303,7 @@ void W_InitMultipleFiles (char** filenames)
 
     // set up caching
     size = numlumps * sizeof(*lumpcache);
-    lumpcache = malloc (size);
+    lumpcache = (void**) malloc (size);
 
     if (!lumpcache)
 	I_Error ("Couldn't allocate lumpcache");
@@ -468,7 +468,7 @@ int last_lump = -1;
 //
 // W_CacheLumpNum
 //
-void*
+patch_t*
 W_CacheLumpNum
 ( int		lump,
   int		tag )
@@ -486,7 +486,7 @@ W_CacheLumpNum
      //       last_lump = lump;
      //    }
         // read the lump in
-    	ptr = Z_Malloc (W_LumpLength (lump), tag, &lumpcache[lump]);
+    	ptr = (byte*) Z_Malloc (W_LumpLength (lump), tag, &lumpcache[lump]);
     	W_ReadLump (lump, lumpcache[lump]);
     }
     else
@@ -499,7 +499,7 @@ W_CacheLumpNum
     	Z_ChangeTag (lumpcache[lump],tag);
     }
 
-    return lumpcache[lump];
+    return (patch_t*) lumpcache[lump];
 }
 
 
@@ -507,7 +507,7 @@ W_CacheLumpNum
 //
 // W_CacheLumpName
 //
-void*
+patch_t*
 W_CacheLumpName
 ( char*		name,
   int		tag )

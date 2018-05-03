@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -20,7 +20,8 @@
 //
 //-----------------------------------------------------------------------------
 
-#include <ctype.h>
+// #include <ctype.h>
+#include "p-lib.hh"
 
 #include "doomdef.h"
 
@@ -176,7 +177,7 @@ char*	mapnames2[] =	// DOOM 2 map names.
     HUSTR_9,
     HUSTR_10,
     HUSTR_11,
-	
+
     HUSTR_12,
     HUSTR_13,
     HUSTR_14,
@@ -186,7 +187,7 @@ char*	mapnames2[] =	// DOOM 2 map names.
     HUSTR_18,
     HUSTR_19,
     HUSTR_20,
-	
+
     HUSTR_21,
     HUSTR_22,
     HUSTR_23,
@@ -215,7 +216,7 @@ char*	mapnamesp[] =	// Plutonia WAD map names.
     PHUSTR_9,
     PHUSTR_10,
     PHUSTR_11,
-	
+
     PHUSTR_12,
     PHUSTR_13,
     PHUSTR_14,
@@ -225,7 +226,7 @@ char*	mapnamesp[] =	// Plutonia WAD map names.
     PHUSTR_18,
     PHUSTR_19,
     PHUSTR_20,
-	
+
     PHUSTR_21,
     PHUSTR_22,
     PHUSTR_23,
@@ -254,7 +255,7 @@ char *mapnamest[] =	// TNT WAD map names.
     THUSTR_9,
     THUSTR_10,
     THUSTR_11,
-	
+
     THUSTR_12,
     THUSTR_13,
     THUSTR_14,
@@ -264,7 +265,7 @@ char *mapnamest[] =	// TNT WAD map names.
     THUSTR_18,
     THUSTR_19,
     THUSTR_20,
-	
+
     THUSTR_21,
     THUSTR_22,
     THUSTR_23,
@@ -439,7 +440,7 @@ void HU_Start(void)
 		       HU_TITLEX, HU_TITLEY,
 		       hu_font,
 		       HU_FONTSTART);
-    
+
     switch ( gamemode )
     {
       case shareware:
@@ -456,13 +457,13 @@ void HU_Start(void)
 	s = HU_TITLET;
 	break;
 */
-	
+
       case commercial:
       default:
 	 s = HU_TITLE2;
 	 break;
     }
-    
+
     while (*s)
 	HUlib_addCharToTextLine(&w_title, *(s++));
 
@@ -519,7 +520,7 @@ void HU_Ticker(void)
 	if ((plr->message && !message_nottobefuckedwith)
 	    || (plr->message && message_dontfuckwithme))
 	{
-	    HUlib_addMessageToSText(&w_message, 0, plr->message);
+	    HUlib_addMessageToSText(&w_message, 0, (char*) plr->message);
 	    plr->message = 0;
 	    message_on = true;
 	    message_counter = HU_MSGTIMEOUT;
@@ -555,7 +556,7 @@ void HU_Ticker(void)
 			    HUlib_addMessageToSText(&w_message,
 						    player_names[i],
 						    w_inputbuffer[i].l.l);
-			    
+
 			    message_nottobefuckedwith = true;
 			    message_on = true;
 			    message_counter = HU_MSGTIMEOUT;
@@ -622,7 +623,7 @@ boolean HU_Responder(event_t *ev)
     unsigned char 	c;
     int			i;
     int			numplayers;
-    
+
     static char		destination_keys[MAXPLAYERS] =
     {
 	HUSTR_KEYGREEN,
@@ -630,7 +631,7 @@ boolean HU_Responder(event_t *ev)
 	HUSTR_KEYBROWN,
 	HUSTR_KEYRED
     };
-    
+
     static int		num_nobrainers = 0;
 
     numplayers = 0;
@@ -707,15 +708,15 @@ boolean HU_Responder(event_t *ev)
 		return false;
 	    // fprintf(stderr, "got here\n");
 	    macromessage = chat_macros[c];
-	    
+
 	    // kill last message with a '\n'
 	    HU_queueChatChar(KEY_ENTER); // DEBUG!!!
-	    
+
 	    // send the macro message
 	    while (*macromessage)
 		HU_queueChatChar(*macromessage++);
 	    HU_queueChatChar(KEY_ENTER);
-	    
+
 	    // leave chat mode and notify that it was sent
 	    chat_on = false;
 	    strcpy(lastmessage, chat_macros[c]);
@@ -733,7 +734,7 @@ boolean HU_Responder(event_t *ev)
 	    {
 		// static unsigned char buf[20]; // DEBUG
 		HU_queueChatChar(c);
-		
+
 		// sprintf(buf, "KEY: %d => %d", ev->data1, c);
 		//      plr->message = buf;
 	    }

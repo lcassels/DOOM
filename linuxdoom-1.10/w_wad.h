@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -28,6 +28,8 @@
 #pragma interface
 #endif
 
+#include "r_defs.h"
+
 
 //
 // TYPES
@@ -35,10 +37,10 @@
 typedef struct
 {
     // Should be "IWAD" or "PWAD".
-    char		identification[4];		
+    char		identification[4];
     int			numlumps;
     int			infotableofs;
-    
+
 } wadinfo_t;
 
 
@@ -47,7 +49,7 @@ typedef struct
     int			filepos;
     int			size;
     char		name[8];
-    
+
 } filelump_t;
 
 //
@@ -75,8 +77,8 @@ int	W_GetNumForName (char* name);
 int	W_LumpLength (int lump);
 void    W_ReadLump (int lump, void *dest);
 
-void*	W_CacheLumpNum (int lump, int tag);
-void*	W_CacheLumpName (char* name, int tag);
+patch_t*	W_CacheLumpNum (int lump, int tag);
+patch_t*	W_CacheLumpName (char* name, int tag);
 
 
 
