@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -21,26 +21,29 @@
 //-----------------------------------------------------------------------------
 
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+// #include <stdlib.h>
+// #include <stdio.h>
+// #include <string.h>
 
-#include <stdarg.h>
+// #include <stdarg.h>
 #include <sys/time.h>
-#include <unistd.h>
+// #include <unistd.h>
 
 #include "doomdef.h"
 #include "m_misc.h"
 #include "i_video.h"
-#include "i_sound.h"
+// #include "i_sound.h"
 
-#include "d_net.h"
+// #include "d_net.h"
 #include "g_game.h"
 
 #ifdef __GNUG__
 #pragma implementation "i_system.h"
 #endif
 #include "i_system.h"
+
+#include "p-lib.hh"
+int stderr = 2;
 
 
 
@@ -88,7 +91,7 @@ int  I_GetTime (void)
     struct timezone	tzp;
     int			newtics;
     static int		basetime=0;
-  
+
     gettimeofday(&tp, &tzp);
     if (!basetime)
 	basetime = tp.tv_sec;
@@ -103,7 +106,7 @@ int  I_GetTime (void)
 //
 void I_Init (void)
 {
-    I_InitSound();
+    // I_InitSound();
     //  I_InitGraphics();
 }
 
@@ -112,9 +115,9 @@ void I_Init (void)
 //
 void I_Quit (void)
 {
-    D_QuitNetGame ();
-    I_ShutdownSound();
-    I_ShutdownMusic();
+    // D_QuitNetGame ();
+    // I_ShutdownSound();
+    // I_ShutdownMusic();
     M_SaveDefaults ();
     I_ShutdownGraphics();
     exit(0);
@@ -123,12 +126,12 @@ void I_Quit (void)
 void I_WaitVBL(int count)
 {
 #ifdef SGI
-    sginap(1);                                           
+    sginap(1);
 #else
 #ifdef SUN
     sleep(0);
 #else
-    usleep (count * (1000000/70) );                                
+    usleep (count * (1000000/70) );
 #endif
 #endif
 }
@@ -144,7 +147,7 @@ void I_EndRead(void)
 byte*	I_AllocLow(int length)
 {
     byte*	mem;
-        
+
     mem = (byte *)malloc (length);
     memset (mem,0,length);
     return mem;
@@ -173,8 +176,8 @@ void I_Error (char *error, ...)
     if (demorecording)
 	G_CheckDemoStatus();
 
-    D_QuitNetGame ();
+    // D_QuitNetGame ();
     I_ShutdownGraphics();
-    
+
     exit(-1);
 }

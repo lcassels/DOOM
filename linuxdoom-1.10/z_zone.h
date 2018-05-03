@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -27,7 +27,8 @@
 #ifndef __Z_ZONE__
 #define __Z_ZONE__
 
-#include <stdio.h>
+// #include <stdio.h>
+#include "p-lib.hh"
 
 //
 // ZONE MEMORY
@@ -49,7 +50,7 @@ void*	Z_Malloc (int size, int tag, void *ptr);
 void    Z_Free (void *ptr);
 void    Z_FreeTags (int lowtag, int hightag);
 void    Z_DumpHeap (int lowtag, int hightag);
-void    Z_FileDumpHeap (FILE *f);
+void    Z_FileDumpHeap (int f);
 void    Z_CheckHeap (void);
 void    Z_ChangeTag2 (void *ptr, int tag);
 int     Z_FreeMemory (void);
