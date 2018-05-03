@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -21,7 +21,8 @@
 //-----------------------------------------------------------------------------
 
 
-#include <string.h>
+// #include <string.h>
+#include "p-lib.hh"
 
 int		myargc;
 char**		myargv;

@@ -48,7 +48,7 @@
 
 #include "z_zone.h"
 #include "w_wad.h"
-// #include "s_sound.h"
+#include "s_sound.h"
 #include "v_video.h"
 
 #include "f_finale.h"
@@ -314,7 +314,7 @@ void D_Display (void)
 
     // menus go directly to the screen
     M_Drawer ();          // menu is drawn even on top of everything
-    NetUpdate ();         // send out any new accumulation
+    // NetUpdate ();         // send out any new accumulation
 
 
     // normal update
@@ -888,12 +888,12 @@ void D_DoomMain (void)
     if (devparm)
 	printf(D_DEVSTR);
 
-    if (M_CheckParm("-cdrom"))
-    {
-	printf(D_CDROM);
-	mkdir("c:\\doomdata",0);
-	strcpy (basedefault,"c:/doomdata/default.cfg");
-    }
+ //    if (M_CheckParm("-cdrom"))
+ //    {
+	// printf(D_CDROM);
+	// mkdir("c:\\doomdata",0);
+	// strcpy (basedefault,"c:/doomdata/default.cfg");
+ //    }
 
     // turbo option
     if ( (p=M_CheckParm ("-turbo")) )
@@ -1115,7 +1115,7 @@ void D_DoomMain (void)
     I_Init ();
 
     printf ("D_CheckNetGame: Checking network game status.\n");
-    D_CheckNetGame ();
+    // D_CheckNetGame ();
 
     // printf ("S_Init: Setting up sound.\n");
     // S_Init (snd_SfxVolume /* *8 */, snd_MusicVolume /* *8*/ );

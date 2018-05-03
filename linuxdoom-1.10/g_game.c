@@ -53,11 +53,11 @@
 
 #include "p_local.h"
 
-// #include "s_sound.h"
+#include "s_sound.h"
 
 // Data.
 #include "dstrings.h"
-// #include "sounds.h"
+#include "sounds.h"
 
 // SKY handling - still the wrong place.
 #include "r_data.h"
