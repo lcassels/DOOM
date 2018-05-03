@@ -50,7 +50,7 @@ enum { VERSION =  110 };
     else                                      \
       jankprintf("*%s = [null deref]", #p);
 
-#define dpulse() jankprintf("got here")
+#define dpulse() sys_log_printf("got here\n")
 #define dnewline() fprintf(stderr, "\n")
 
 

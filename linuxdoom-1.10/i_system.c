@@ -148,9 +148,7 @@ byte*	I_AllocLow(int length)
 {
     byte*	mem;
     mem = (byte *)malloc (length);
-    sys_log_printf("length %d, mem loc %p\n", length, mem);
     memset (mem,0,length);
-    sys_log_printf("success\n");
     return mem;
 }
 

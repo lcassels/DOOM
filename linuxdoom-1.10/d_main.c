@@ -580,17 +580,17 @@ void IdentifyVersion (void)
     if (!doomwaddir)
 	doomwaddir = ".";
 
-    // Commercial.
-    doom2wad = malloc(strlen(doomwaddir)+1+9+1);
-    sprintf(doom2wad, "%s/doom2.wad", doomwaddir);
+    // // Commercial.
+    // doom2wad = malloc(strlen(doomwaddir)+1+9+1);
+    // sprintf(doom2wad, "%s/doom2.wad", doomwaddir);
 
-    // Retail.
-    doomuwad = malloc(strlen(doomwaddir)+1+8+1);
-    sprintf(doomuwad, "%s/doomu.wad", doomwaddir);
+    // // Retail.
+    // doomuwad = malloc(strlen(doomwaddir)+1+8+1);
+    // sprintf(doomuwad, "%s/doomu.wad", doomwaddir);
 
-    // Registered.
-    doomwad = malloc(strlen(doomwaddir)+1+8+1);
-    sprintf(doomwad, "%s/doom.wad", doomwaddir);
+    // // Registered.
+    // doomwad = malloc(strlen(doomwaddir)+1+8+1);
+    // sprintf(doomwad, "%s/doom.wad", doomwaddir);
 
     // Shareware.
     doom1wad = malloc(strlen(doomwaddir)+1+9+1);
@@ -598,16 +598,16 @@ void IdentifyVersion (void)
 
      // Bug, dear Shawn.
     // Insufficient malloc, caused spurious realloc errors.
-    plutoniawad = malloc(strlen(doomwaddir)+1+/*9*/12+1);
-    sprintf(plutoniawad, "%s/plutonia.wad", doomwaddir);
+    // plutoniawad = malloc(strlen(doomwaddir)+1+/*9*/12+1);
+    // sprintf(plutoniawad, "%s/plutonia.wad", doomwaddir);
 
-    tntwad = malloc(strlen(doomwaddir)+1+9+1);
-    sprintf(tntwad, "%s/tnt.wad", doomwaddir);
+    // tntwad = malloc(strlen(doomwaddir)+1+9+1);
+    // sprintf(tntwad, "%s/tnt.wad", doomwaddir);
 
 
     // French stuff.
-    doom2fwad = malloc(strlen(doomwaddir)+1+10+1);
-    sprintf(doom2fwad, "%s/doom2f.wad", doomwaddir);
+    // doom2fwad = malloc(strlen(doomwaddir)+1+10+1);
+    // sprintf(doom2fwad, "%s/doom2f.wad", doomwaddir);
 
     home = getenv("HOME");
     if (!home)
@@ -615,99 +615,102 @@ void IdentifyVersion (void)
     sprintf(basedefault, "%s/.doomrc", home);
 #endif
 
-    if (M_CheckParm ("-shdev"))
-    {
-	gamemode = shareware;
-	devparm = true;
-	D_AddFile (DEVDATA"doom1.wad");
-	D_AddFile (DEVMAPS"data_se/texture1.lmp");
-	D_AddFile (DEVMAPS"data_se/pnames.lmp");
-	strcpy (basedefault,DEVDATA"default.cfg");
-	return;
-    }
+ //    if (M_CheckParm ("-shdev"))
+ //    {
+	// gamemode = shareware;
+	// devparm = true;
+	// D_AddFile (DEVDATA"doom1.wad");
+	// D_AddFile (DEVMAPS"data_se/texture1.lmp");
+	// D_AddFile (DEVMAPS"data_se/pnames.lmp");
+	// strcpy (basedefault,DEVDATA"default.cfg");
+	// return;
+ //    }
 
-    if (M_CheckParm ("-regdev"))
-    {
-	gamemode = registered;
-	devparm = true;
-	D_AddFile (DEVDATA"doom.wad");
-	D_AddFile (DEVMAPS"data_se/texture1.lmp");
-	D_AddFile (DEVMAPS"data_se/texture2.lmp");
-	D_AddFile (DEVMAPS"data_se/pnames.lmp");
-	strcpy (basedefault,DEVDATA"default.cfg");
-	return;
-    }
+ //    if (M_CheckParm ("-regdev"))
+ //    {
+	// gamemode = registered;
+	// devparm = true;
+	// D_AddFile (DEVDATA"doom.wad");
+	// D_AddFile (DEVMAPS"data_se/texture1.lmp");
+	// D_AddFile (DEVMAPS"data_se/texture2.lmp");
+	// D_AddFile (DEVMAPS"data_se/pnames.lmp");
+	// strcpy (basedefault,DEVDATA"default.cfg");
+	// return;
+ //    }
 
-    if (M_CheckParm ("-comdev"))
-    {
-	gamemode = commercial;
-	devparm = true;
-	/* I don't bother
-	if(plutonia)
-	    D_AddFile (DEVDATA"plutonia.wad");
-	else if(tnt)
-	    D_AddFile (DEVDATA"tnt.wad");
-	else*/
-	    D_AddFile (DEVDATA"doom2.wad");
+ //    if (M_CheckParm ("-comdev"))
+ //    {
+	// gamemode = commercial;
+	// devparm = true;
+	// /* I don't bother
+	// if(plutonia)
+	//     D_AddFile (DEVDATA"plutonia.wad");
+	// else if(tnt)
+	//     D_AddFile (DEVDATA"tnt.wad");
+	// else*/
+	//     D_AddFile (DEVDATA"doom2.wad");
 
-	D_AddFile (DEVMAPS"cdata/texture1.lmp");
-	D_AddFile (DEVMAPS"cdata/pnames.lmp");
-	strcpy (basedefault,DEVDATA"default.cfg");
-	return;
-    }
+	// D_AddFile (DEVMAPS"cdata/texture1.lmp");
+	// D_AddFile (DEVMAPS"cdata/pnames.lmp");
+	// strcpy (basedefault,DEVDATA"default.cfg");
+	// return;
+ //    }
 
-    if ( !access (doom2fwad,R_OK) )
-    {
-	gamemode = commercial;
-	// C'est ridicule!
-	// Let's handle languages in config files, okay?
-	language = french;
-	printf("French version\n");
-	D_AddFile (doom2fwad);
-	return;
-    }
+ //    if ( !access (doom2fwad,R_OK) )
+ //    {
+	// gamemode = commercial;
+	// // C'est ridicule!
+	// // Let's handle languages in config files, okay?
+	// language = french;
+	// printf("French version\n");
+	// D_AddFile (doom2fwad);
+	// return;
+ //    }
 
-    if ( !access (doom2wad,R_OK) )
-    {
-	gamemode = commercial;
-	D_AddFile (doom2wad);
-	return;
-    }
+ //    if ( !access (doom2wad,R_OK) )
+ //    {
+	// gamemode = commercial;
+	// D_AddFile (doom2wad);
+	// return;
+ //    }
 
-    if ( !access (plutoniawad, R_OK ) )
-    {
-      gamemode = commercial;
-      D_AddFile (plutoniawad);
-      return;
-    }
+ //    if ( !access (plutoniawad, R_OK ) )
+ //    {
+ //      gamemode = commercial;
+ //      D_AddFile (plutoniawad);
+ //      return;
+ //    }
 
-    if ( !access ( tntwad, R_OK ) )
-    {
-      gamemode = commercial;
-      D_AddFile (tntwad);
-      return;
-    }
+ //    if ( !access ( tntwad, R_OK ) )
+ //    {
+ //      gamemode = commercial;
+ //      D_AddFile (tntwad);
+ //      return;
+ //    }
 
-    if ( !access (doomuwad,R_OK) )
-    {
-      gamemode = retail;
-      D_AddFile (doomuwad);
-      return;
-    }
+ //    if ( !access (doomuwad,R_OK) )
+ //    {
+ //      gamemode = retail;
+ //      D_AddFile (doomuwad);
+ //      return;
+ //    }
 
-    if ( !access (doomwad,R_OK) )
-    {
-      gamemode = registered;
-      D_AddFile (doomwad);
-      return;
-    }
+ //    if ( !access (doomwad,R_OK) )
+ //    {
+ //      gamemode = registered;
+ //      D_AddFile (doomwad);
+ //      return;
+ //    }
 
-    if ( !access (doom1wad,R_OK) )
-    {
-      gamemode = shareware;
-      D_AddFile (doom1wad);
-      return;
-    }
+    // if ( !access (doom1wad,R_OK) )
+    // {
+    //   gamemode = shareware;
+    //   D_AddFile (doom1wad);
+    //   return;
+    // }
+    gamemode = shareware;
+    D_AddFile (doom1wad);
+    return;
 
     printf("Game mode indeterminate.\n");
     gamemode = indetermined;
@@ -1025,14 +1028,13 @@ void D_DoomMain (void)
     printf ("V_Init: allocate screens.\n");
     V_Init ();
 
-    sys_log_printf("Vinit successful\n");
-
-    printf ("M_LoadDefaults: Load system defaults.\n");
-    M_LoadDefaults ();              // load before initing other systems
+    // printf ("M_LoadDefaults: Load system defaults.\n");
+    // M_LoadDefaults ();              // load before initing other systems
 
     printf ("Z_Init: Init zone memory allocation daemon. \n");
     Z_Init ();
 
+    // sys_log_printf("WAD files? %s\n", wadfiles[0]);
     printf ("W_Init: Init WADfiles.\n");
     W_InitMultipleFiles (wadfiles);
 

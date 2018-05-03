@@ -293,8 +293,9 @@ void W_InitMultipleFiles (char** filenames)
     // will be realloced as lumps are added
     lumpinfo = (lumpinfo_t*) malloc(1);
 
-    for ( ; *filenames ; filenames++)
-	W_AddFile (*filenames);
+    for ( ; *filenames ; filenames++) {
+	   W_AddFile (*filenames);
+    }
 
     if (!numlumps)
 	I_Error ("W_InitFiles: no files found");
