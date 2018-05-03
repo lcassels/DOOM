@@ -54,80 +54,92 @@ char *sprnames[NUMSPRITES] = {
 
 
 // Doesn't work with g++, needs actionf_p1
-void  A_Light0();
-void A_WeaponReady();
-void A_Lower();
-void A_Raise();
-void A_Punch();
-void A_ReFire();
-void A_FirePistol();
-void A_Light1();
-void A_FireShotgun();
-void A_Light2();
-void A_FireShotgun2();
-void A_CheckReload();
-void A_OpenShotgun2();
-void A_LoadShotgun2();
-void A_CloseShotgun2();
-void A_FireCGun();
-void A_GunFlash();
-void A_FireMissile();
-void A_Saw();
-void A_FirePlasma();
-void A_BFGsound();
-void A_FireBFG();
-void A_BFGSpray();
-void A_Explode();
-void A_Pain();
-void A_PlayerScream();
-void A_Fall();
-void A_XScream();
-void A_Look();
-void A_Chase();
-void A_FaceTarget();
-void A_PosAttack();
-void A_Scream();
-void A_SPosAttack();
-void A_VileChase();
-void A_VileStart();
-void A_VileTarget();
-void A_VileAttack();
-void A_StartFire();
-void A_Fire();
-void A_FireCrackle();
-void A_Tracer();
-void A_SkelWhoosh();
-void A_SkelFist();
-void A_SkelMissile();
-void A_FatRaise();
-void A_FatAttack1();
-void A_FatAttack2();
-void A_FatAttack3();
-void A_BossDeath();
-void A_CPosAttack();
-void A_CPosRefire();
-void A_TroopAttack();
-void A_SargAttack();
-void A_HeadAttack();
-void A_BruisAttack();
-void A_SkullAttack();
-void A_Metal();
-void A_SpidRefire();
-void A_BabyMetal();
-void A_BspiAttack();
-void A_Hoof();
-void A_CyberAttack();
-void A_PainAttack();
-void A_PainDie();
-void A_KeenDie();
-void A_BrainPain();
-void A_BrainScream();
-void A_BrainDie();
-void A_BrainAwake();
-void A_BrainSpit();
-void A_SpawnSound();
-void A_SpawnFly();
-void A_BrainExplode();
+
+/*
+ * Previously, these were defined as void func(). That's not
+ * going to cut it, since the linker needs to know more about
+ * the arguments. Changing them to actionf_t (+ the fact that
+ * we are using -fpermissive) actually allows the compiler to
+ * implicitly convert these unions to whatever they are supposed
+ * to be, and the linker *seems*, at least, to go with it.
+ *
+ * Use with caution. Yay.
+ */
+
+actionf_t A_Light0;
+actionf_t A_WeaponReady;
+actionf_t A_Lower;
+actionf_t A_Raise;
+actionf_t A_Punch;
+actionf_t A_ReFire;
+actionf_t A_FirePistol;
+actionf_t A_Light1;
+actionf_t A_FireShotgun;
+actionf_t A_Light2;
+actionf_t A_FireShotgun2;
+actionf_t A_CheckReload;
+actionf_t A_OpenShotgun2;
+actionf_t A_LoadShotgun2;
+actionf_t A_CloseShotgun2;
+actionf_t A_FireCGun;
+actionf_t A_GunFlash;
+actionf_t A_FireMissile;
+actionf_t A_Saw;
+actionf_t A_FirePlasma;
+actionf_t A_BFGsound;
+actionf_t A_FireBFG;
+actionf_t A_BFGSpray;
+actionf_t A_Explode;
+actionf_t A_Pain;
+actionf_t A_PlayerScream;
+actionf_t A_Fall;
+actionf_t A_XScream;
+actionf_t A_Look;
+actionf_t A_Chase;
+actionf_t A_FaceTarget;
+actionf_t A_PosAttack;
+actionf_t A_Scream;
+actionf_t A_SPosAttack;
+actionf_t A_VileChase;
+actionf_t A_VileStart;
+actionf_t A_VileTarget;
+actionf_t A_VileAttack;
+actionf_t A_StartFire;
+actionf_t A_Fire;
+actionf_t A_FireCrackle;
+actionf_t A_Tracer;
+actionf_t A_SkelWhoosh;
+actionf_t A_SkelFist;
+actionf_t A_SkelMissile;
+actionf_t A_FatRaise;
+actionf_t A_FatAttack1;
+actionf_t A_FatAttack2;
+actionf_t A_FatAttack3;
+actionf_t A_BossDeath;
+actionf_t A_CPosAttack;
+actionf_t A_CPosRefire;
+actionf_t A_TroopAttack;
+actionf_t A_SargAttack;
+actionf_t A_HeadAttack;
+actionf_t A_BruisAttack;
+actionf_t A_SkullAttack;
+actionf_t A_Metal;
+actionf_t A_SpidRefire;
+actionf_t A_BabyMetal;
+actionf_t A_BspiAttack;
+actionf_t A_Hoof;
+actionf_t A_CyberAttack;
+actionf_t A_PainAttack;
+actionf_t A_PainDie;
+actionf_t A_KeenDie;
+actionf_t A_BrainPain;
+actionf_t A_BrainScream;
+actionf_t A_BrainDie;
+actionf_t A_BrainAwake;
+actionf_t A_BrainSpit;
+actionf_t A_SpawnSound;
+actionf_t A_SpawnFly;
+actionf_t A_BrainExplode;
 
 
 state_t	states[NUMSTATES] = {

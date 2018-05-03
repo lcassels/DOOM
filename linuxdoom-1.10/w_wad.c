@@ -21,6 +21,7 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "p-lib.hh"
 
 #ifdef NORMALUNIX
 // #include <ctype.h>
@@ -28,8 +29,8 @@
 // #include <string.h>
 // #include <unistd.h>
 // #include <malloc.h>
-#include <fcntl.h>
-#include <sys/stat.h>
+// #include <fcntl.h>
+// #include <sys/stat.h>
 // #include <alloca.h>
 #define O_BINARY		0
 #endif
@@ -43,9 +44,6 @@
 #pragma implementation "w_wad.h"
 #endif
 #include "w_wad.h"
-
-#include "p-lib.hh"
-
 
 
 

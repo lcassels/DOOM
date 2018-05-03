@@ -22,11 +22,12 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "p-lib.hh"
 
 // #include <unistd.h>
 #include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+// #include <sys/stat.h>
+// #include <fcntl.h>
 // #include <stdlib.h>
 // #include <ctype.h>
 
@@ -60,8 +61,6 @@
 #include "sounds.h"
 
 #include "m_menu.h"
-
-#include "p-lib.hh"
 
 
 

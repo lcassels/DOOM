@@ -36,7 +36,7 @@
 // // #include <sys/filio.h>
 // #endif
 
-#include <fcntl.h>
+// #include <fcntl.h>
 // #include <unistd.h>
 #include <sys/ioctl.h>
 

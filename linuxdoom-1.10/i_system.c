@@ -26,7 +26,7 @@
 // #include <string.h>
 
 // #include <stdarg.h>
-#include <sys/time.h>
+// #include <sys/time.h>
 // #include <unistd.h>
 
 #include "doomdef.h"
@@ -86,16 +86,17 @@ byte* I_ZoneBase (int*	size)
 //
 int  I_GetTime (void)
 {
-    struct timeval	tp;
-    struct timezone	tzp;
-    int			newtics;
-    static int		basetime=0;
+ //    struct timeval	tp;
+ //    struct timezone	tzp;
+ //    int			newtics;
+ //    static int		basetime=0;
 
-    gettimeofday(&tp, &tzp);
-    if (!basetime)
-	basetime = tp.tv_sec;
-    newtics = (tp.tv_sec-basetime)*TICRATE + tp.tv_usec*TICRATE/1000000;
-    return newtics;
+ //    gettimeofday(&tp, &tzp);
+ //    if (!basetime)
+	// basetime = tp.tv_sec;
+ //    newtics = (tp.tv_sec-basetime)*TICRATE + tp.tv_usec*TICRATE/1000000;
+    // TODO NEED TO FIX GET TIME
+    return 0;
 }
 
 
