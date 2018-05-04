@@ -53,6 +53,7 @@
 
 // Location of each lump on disk.
 lumpinfo_t*		lumpinfo;
+size_t          lumpinfosz;
 int			numlumps;
 
 void**			lumpcache;
@@ -198,7 +199,9 @@ void W_AddFile (char *filename)
 
 
     // Fill in lumpinfo
-    lumpinfo = (lumpinfo_t*) realloc ((char*) lumpinfo, numlumps*sizeof(lumpinfo_t));
+    lumpinfo = (lumpinfo_t*)
+        realloc ((char*) lumpinfo, numlumps*sizeof(lumpinfo_t), lumpinfosz);
+    lumpinfosz = numlumps*sizeof(lumpinfo_t);
 
     if (!lumpinfo)
 	I_Error ("Couldn't realloc lumpinfo");
@@ -303,6 +306,7 @@ void W_InitMultipleFiles (char** filenames)
     // set up caching
     size = numlumps * sizeof(*lumpcache);
     lumpcache = (void**) malloc (size);
+    lumpinfosz = size;
 
     if (!lumpcache)
 	I_Error ("Couldn't allocate lumpcache");
