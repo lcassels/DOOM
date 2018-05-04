@@ -6,6 +6,10 @@
 
 #include "doomdef.h"
 
+#include "p-lib.hh"
+
+
+unsigned char* mmio_addr = reinterpret_cast<unsigned char*>(0x3000000);
 
 // Called by D_DoomMain,
 // determines the hardware configuration
@@ -16,11 +20,8 @@ void I_InitGraphics (void) {
 		return;
     firsttime = 0;
 
-    // TODO: when linked to pug this should probably be a pointer to vga mmio?
- //    if (multiply == 1)
-	// screens[0] = (unsigned char *) (image->data);
- //    else
-	screens[0] = (unsigned char *) malloc (SCREENWIDTH * SCREENHEIGHT);
+    sys_map_screen(mmio_addr);
+	screens[0] = mmio_addr;
 }
 
 void I_StartTic (void)
@@ -29,7 +30,7 @@ void I_StartTic (void)
 }
 
 void I_ShutdownGraphics(void) {
-	// TODO: free screens[0]? wipe screen? quit program?
+	I_Quit();
 }
 
 // Takes full 8 bit values.
