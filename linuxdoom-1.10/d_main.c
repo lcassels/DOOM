@@ -594,7 +594,7 @@ void IdentifyVersion (void)
 
     // Shareware.
     doom1wad = malloc(strlen(doomwaddir)+1+9+1);
-    sprintf(doom1wad, "%s/doom1.wad", doomwaddir);
+    sprintf(doom1wad, "doom1.wad");
 
      // Bug, dear Shawn.
     // Insufficient malloc, caused spurious realloc errors.
