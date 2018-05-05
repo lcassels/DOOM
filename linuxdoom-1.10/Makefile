@@ -117,6 +117,12 @@ clean:
 x32: $(O32)/$(E)
 x64: $(O64)/$(E)
 
+# run!
+run-32: x32
+	./$(O32)/$(E)
+run-64: x64
+	./$(O64)/$(E)
+
 # recipe for ensuring a directory exists
 %/.:
 	@mkdir -p $@

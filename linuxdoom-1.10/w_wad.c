@@ -34,6 +34,7 @@
 #define O_BINARY		0
 #endif
 
+#include "doomdef.h"
 #include "doomtype.h"
 #include "m_swap.h"
 #include "i_system.h"
@@ -189,8 +190,18 @@ void W_AddFile (char *filename)
 	    
 	    // ???modifiedgame = true;		
 	}
+
 	header.numlumps = LONG(header.numlumps);
 	header.infotableofs = LONG(header.infotableofs);
+
+    jprintf("header->identification: %c%c%c%c",
+        header.identification[0],
+        header.identification[1],
+        header.identification[2],
+        header.identification[3]);
+    dprintv(header.numlumps, "%d");
+    dprintv(header.infotableofs, "%d");
+
 	length = header.numlumps*sizeof(filelump_t);
 	fileinfo = alloca (length);
 	lseek (handle, header.infotableofs, SEEK_SET);
