@@ -152,9 +152,9 @@ void P_InitPicAnims (void)
 
     //	Init animation
     lastanim = anims;
-    for (i=0 ; animdefs[i].istexture != -1 ; i++)
+    for (i=0 ; animdefs[i].startname[0] != '\0' ; i++)
     {
-        sys_log_printf("%d animdefs\n", i);
+    // sys_log_printf("%d animdefs, istexture %d, endname %s\n", i, animdefs[i].istexture, animdefs[i].endname);
 	if (animdefs[i].istexture)
 	{
 	    // different episode ?
@@ -177,9 +177,6 @@ void P_InitPicAnims (void)
 	lastanim->numpics = lastanim->picnum - lastanim->basepic + 1;
 
 	if (lastanim->numpics < 2)
-        sys_log_printf("P_InitPicAnims: bad cycle from %s to %s",
-             animdefs[i].startname,
-             animdefs[i].endname);
 	    I_Error ("P_InitPicAnims: bad cycle from %s to %s",
 		     animdefs[i].startname,
 		     animdefs[i].endname);
