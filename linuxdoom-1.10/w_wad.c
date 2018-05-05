@@ -175,26 +175,36 @@ void W_AddFile (char *filename)
     }
     else
     {
-	// WAD file
-	read (handle, &header, sizeof(header));
-	if (strncmp(header.identification,"IWAD",4))
-	{
-	    // Homebrew levels?
-	    if (strncmp(header.identification,"PWAD",4))
-	    {
-		I_Error ("Wad file %s doesn't have IWAD "
-			 "or PWAD id\n", filename);
-	    }
+    	// WAD file
+    	read (handle, &header, sizeof(header));
+    	if (strncmp(header.identification,"IWAD",4))
+    	{
+    	    // Homebrew levels?
+    	    if (strncmp(header.identification,"PWAD",4))
+    	    {
+    		I_Error ("Wad file %s doesn't have IWAD "
+    			 "or PWAD id\n", filename);
+    	    }
 
-	    // ???modifiedgame = true;
-	}
-	header.numlumps = LONG(header.numlumps);
-	header.infotableofs = LONG(header.infotableofs);
-	length = header.numlumps*sizeof(filelump_t);
-	fileinfo = (filelump_t*) malloc (length);
-	lseek (handle, header.infotableofs, SEEK_SET);
-	read (handle, fileinfo, length);
-	numlumps += header.numlumps;
+    	    // ???modifiedgame = true;
+    	}
+
+    	header.numlumps = LONG(header.numlumps);
+    	header.infotableofs = LONG(header.infotableofs);
+
+        // jprintf("header->identification: %c%c%c%c",
+        //     header.identification[0],
+        //     header.identification[1],
+        //     header.identification[2],
+        //     header.identification[3]);
+        // dprintv(header.numlumps, "%d");
+        // dprintv(header.infotableofs, "%d");
+
+    	length = header.numlumps*sizeof(filelump_t);
+    	fileinfo = (filelump_t*) alloca (length);
+    	lseek (handle, header.infotableofs, SEEK_SET);
+    	read (handle, fileinfo, length);
+    	numlumps += header.numlumps;
     }
 
 

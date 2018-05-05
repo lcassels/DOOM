@@ -1118,7 +1118,7 @@ void D_DoomMain (void)
     printf ("I_Init: Setting up machine state.\n");
     I_Init ();
 
-    printf ("D_CheckNetGame: Checking network game status.\n");
+    // printf ("D_CheckNetGame: Checking network game status.\n");
     // D_CheckNetGame ();
 
     // printf ("S_Init: Setting up sound.\n");
