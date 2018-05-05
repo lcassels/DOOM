@@ -166,12 +166,12 @@ void W_AddFile (char *filename)
 
     if (strcmpi (filename+strlen(filename)-3 , "wad" ) )
     {
-	// single lump file
-	fileinfo = &singleinfo;
-	singleinfo.filepos = 0;
-	singleinfo.size = LONG(filelength(handle));
-	ExtractFileBase (filename, singleinfo.name);
-	numlumps++;
+    	// single lump file
+    	fileinfo = &singleinfo;
+    	singleinfo.filepos = 0;
+    	singleinfo.size = LONG(filelength(handle));
+    	ExtractFileBase (filename, singleinfo.name);
+    	numlumps++;
     }
     else
     {
@@ -204,17 +204,17 @@ void W_AddFile (char *filename)
     lumpinfosz = numlumps*sizeof(lumpinfo_t);
 
     if (!lumpinfo)
-	I_Error ("Couldn't realloc lumpinfo");
+	   I_Error ("Couldn't realloc lumpinfo");
 
     lump_p = &lumpinfo[startlump];
 
     storehandle = reloadname ? -1 : handle;
     for (i=startlump ; i<numlumps ; i++,lump_p++, fileinfo++)
     {
-	lump_p->handle = storehandle;
-	lump_p->position = LONG(fileinfo->filepos);
-	lump_p->size = LONG(fileinfo->size);
-	strncpy (lump_p->name, fileinfo->name, 8);
+    	lump_p->handle = storehandle;
+    	lump_p->position = LONG(fileinfo->filepos);
+    	lump_p->size = LONG(fileinfo->size);
+    	strncpy (lump_p->name, fileinfo->name, 8);
     }
 
     if (reloadname)
