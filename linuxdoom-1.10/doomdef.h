@@ -40,6 +40,8 @@ enum { VERSION =  110 };
     fprintf(stderr, "*** %s:%d::%s(): " fmt "\n",   \
     __FILE__, __LINE__, __func__, ##args)
 
+#define jprintf(...) jankprintf(__VA_ARGS__)
+
 #define dprintv(v, f)                               \
     fprintf(stderr, "*** %s:%d::%s(): %s = " f "\n",  \
     __FILE__, __LINE__, __func__, #v, v)
@@ -48,9 +50,9 @@ enum { VERSION =  110 };
     if (p)                                    \
       dprintv(*p, f);                         \
     else                                      \
-      jankprintf("*%s = [null deref]", #p);
+      jprintf("*%s = [null deref]", #p);
 
-#define dpulse() sys_log_printf("got here\n")
+#define dpulse() jprintf("got here\n")
 #define dnewline() fprintf(stderr, "\n")
 
 

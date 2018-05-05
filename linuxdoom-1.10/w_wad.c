@@ -166,35 +166,45 @@ void W_AddFile (char *filename)
 
     if (strcmpi (filename+strlen(filename)-3 , "wad" ) )
     {
-	// single lump file
-	fileinfo = &singleinfo;
-	singleinfo.filepos = 0;
-	singleinfo.size = LONG(filelength(handle));
-	ExtractFileBase (filename, singleinfo.name);
-	numlumps++;
+    	// single lump file
+    	fileinfo = &singleinfo;
+    	singleinfo.filepos = 0;
+    	singleinfo.size = LONG(filelength(handle));
+    	ExtractFileBase (filename, singleinfo.name);
+    	numlumps++;
     }
     else
     {
-	// WAD file
-	read (handle, &header, sizeof(header));
-	if (strncmp(header.identification,"IWAD",4))
-	{
-	    // Homebrew levels?
-	    if (strncmp(header.identification,"PWAD",4))
-	    {
-		I_Error ("Wad file %s doesn't have IWAD "
-			 "or PWAD id\n", filename);
-	    }
+    	// WAD file
+    	read (handle, &header, sizeof(header));
+    	if (strncmp(header.identification,"IWAD",4))
+    	{
+    	    // Homebrew levels?
+    	    if (strncmp(header.identification,"PWAD",4))
+    	    {
+    		I_Error ("Wad file %s doesn't have IWAD "
+    			 "or PWAD id\n", filename);
+    	    }
 
-	    // ???modifiedgame = true;
-	}
-	header.numlumps = LONG(header.numlumps);
-	header.infotableofs = LONG(header.infotableofs);
-	length = header.numlumps*sizeof(filelump_t);
-	fileinfo = (filelump_t*) alloca (length);
-	lseek (handle, header.infotableofs, SEEK_SET);
-	read (handle, fileinfo, length);
-	numlumps += header.numlumps;
+    	    // ???modifiedgame = true;
+    	}
+
+    	header.numlumps = LONG(header.numlumps);
+    	header.infotableofs = LONG(header.infotableofs);
+
+        jprintf("header->identification: %c%c%c%c",
+            header.identification[0],
+            header.identification[1],
+            header.identification[2],
+            header.identification[3]);
+        dprintv(header.numlumps, "%d");
+        dprintv(header.infotableofs, "%d");
+
+    	length = header.numlumps*sizeof(filelump_t);
+    	fileinfo = (filelump_t*) alloca (length);
+    	lseek (handle, header.infotableofs, SEEK_SET);
+    	read (handle, fileinfo, length);
+    	numlumps += header.numlumps;
     }
 
 
@@ -204,7 +214,7 @@ void W_AddFile (char *filename)
     lumpinfosz = numlumps*sizeof(lumpinfo_t);
 
     if (!lumpinfo)
-	I_Error ("Couldn't realloc lumpinfo");
+	   I_Error ("Couldn't realloc lumpinfo");
 
     lump_p = &lumpinfo[startlump];
 
@@ -212,10 +222,10 @@ void W_AddFile (char *filename)
 
     for (i=startlump ; i<numlumps ; i++,lump_p++, fileinfo++)
     {
-	lump_p->handle = storehandle;
-	lump_p->position = LONG(fileinfo->filepos);
-	lump_p->size = LONG(fileinfo->size);
-	strncpy (lump_p->name, fileinfo->name, 8);
+    	lump_p->handle = storehandle;
+    	lump_p->position = LONG(fileinfo->filepos);
+    	lump_p->size = LONG(fileinfo->size);
+    	strncpy (lump_p->name, fileinfo->name, 8);
     }
 
     if (reloadname)
