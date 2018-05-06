@@ -35,7 +35,18 @@ void I_ShutdownGraphics(void) {
 
 // Takes full 8 bit values.
 void I_SetPalette (byte* palette) {
-	// pretty sure palette is 256 bytes long
+	uint8_t red;
+	uint8_t green;
+	uint8_t blue;
+	uintptr_t c;
+
+	for (uintptr_t i=0 ; i<256 ; i++)
+	{
+		red = gammatable[usegamma][*palette++] / 4;
+		green = gammatable[usegamma][*palette++] / 4;
+		blue = gammatable[usegamma][*palette++] / 4;
+		sys_swapcolor(i, red, green, blue);
+	}
 }
 
 void I_FinishUpdate (void) {
