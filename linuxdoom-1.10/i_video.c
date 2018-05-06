@@ -21,7 +21,7 @@ void I_InitGraphics (void) {
     firsttime = 0;
 
     sys_map_screen(mmio_addr);
-	screens[0] = mmio_addr;
+	screens[0] = (unsigned char *) malloc (SCREENWIDTH * SCREENHEIGHT);
 }
 
 void I_StartTic (void)
@@ -124,6 +124,8 @@ void I_FinishUpdate (void) {
 		for ( ; i<20*2 ; i+=2)
 		    screens[0][ (SCREENHEIGHT-1)*SCREENWIDTH + i] = 0x0;
     }
+
+    memcpy(mmio_addr, screens[0], SCREENWIDTH * SCREENHEIGHT);
 }
 
 // Wait for vertical retrace or pause a bit.
