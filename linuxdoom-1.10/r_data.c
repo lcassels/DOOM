@@ -510,8 +510,6 @@ void R_InitTextures (void)
 	printf("\x8");
     printf("\x8\x8\x8\x8\x8\x8\x8\x8\x8\x8");
 
-    printf("\nbefore loop");
-
     for (i=0 ; i<numtextures ; i++, directory++) {
     	if (!(i&63))
     	    printf (".");
@@ -584,8 +582,6 @@ void R_InitTextures (void)
 
     for (i=0 ; i<numtextures ; i++)
 	   texturetranslation[i] = i;
-
-    jankprintf("passed R_InitTextures");
 }
 
 

@@ -570,7 +570,7 @@ void D_CheckNetGame (void)
     netbuffer = &doomcom->data;
     consoleplayer = displayplayer = doomcom->consoleplayer;
     if (netgame)
-	D_ArbitrateNetStart ();
+		D_ArbitrateNetStart ();
 
     printf ("startskill %i  deathmatch: %i  startmap: %i  startepisode: %i\n",
 	    startskill, deathmatch, startmap, startepisode);

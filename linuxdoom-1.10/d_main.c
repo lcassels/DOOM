@@ -355,55 +355,55 @@ extern  boolean         demorecording;
 void D_DoomLoop (void)
 {
     if (demorecording)
-	G_BeginRecording ();
+		G_BeginRecording ();
 
     if (M_CheckParm ("-debugfile"))
     {
-	char    filename[20];
-	sprintf (filename,"debug%i.txt",consoleplayer);
-	printf ("debug output to: %s\n",filename);
-	debugfile = fopen (filename,"w");
+		char    filename[20];
+		sprintf (filename,"debug%i.txt",consoleplayer);
+		printf ("debug output to: %s\n",filename);
+		debugfile = fopen (filename,"w");
     }
 
     I_InitGraphics ();
 
     while (1)
     {
-	// frame syncronous IO operations
-	I_StartFrame ();
+		// frame syncronous IO operations
+		I_StartFrame ();
 
-	// process one or more tics
-	if (singletics)
-	{
-	    I_StartTic ();
-	    D_ProcessEvents ();
-	    G_BuildTiccmd (&netcmds[consoleplayer][maketic%BACKUPTICS]);
-	    if (advancedemo)
-		D_DoAdvanceDemo ();
-	    M_Ticker ();
-	    G_Ticker ();
-	    gametic++;
-	    maketic++;
-	}
-	else
-	{
-	    TryRunTics (); // will run at least one tic
-	}
+		// process one or more tics
+		if (singletics)
+		{
+		    I_StartTic ();
+		    D_ProcessEvents ();
+		    G_BuildTiccmd (&netcmds[consoleplayer][maketic%BACKUPTICS]);
+		    if (advancedemo)
+				D_DoAdvanceDemo ();
+		    M_Ticker ();
+		    G_Ticker ();
+		    gametic++;
+		    maketic++;
+		}
+		else
+		{
+		    TryRunTics (); // will run at least one tic
+		}
 
-	// S_UpdateSounds (players[consoleplayer].mo);// move positional sounds
+		// S_UpdateSounds (players[consoleplayer].mo);// move positional sounds
 
-	// Update display, next frame, with current state.
-	D_Display ();
+		// Update display, next frame, with current state.
+		D_Display ();
 
-#ifndef SNDSERV
-	// Sound mixing for the buffer is snychronous.
-	// I_UpdateSound();
-#endif
-	// Synchronous sound output is explicitly called.
-#ifndef SNDINTR
-	// Update sound output.
-	// I_SubmitSound();
-#endif
+	#ifndef SNDSERV
+		// Sound mixing for the buffer is snychronous.
+		// I_UpdateSound();
+	#endif
+		// Synchronous sound output is explicitly called.
+	#ifndef SNDINTR
+		// Update sound output.
+		// I_SubmitSound();
+	#endif
     }
 }
 
@@ -1119,7 +1119,7 @@ void D_DoomMain (void)
     I_Init ();
 
     // printf ("D_CheckNetGame: Checking network game status.\n");
-    // D_CheckNetGame ();
+    D_CheckNetGame ();
 
     // printf ("S_Init: Setting up sound.\n");
     // S_Init (snd_SfxVolume /* *8 */, snd_MusicVolume /* *8*/ );
@@ -1134,11 +1134,11 @@ void D_DoomMain (void)
     p = M_CheckParm ("-statcopy");
     if (p && p<myargc-1)
     {
-	// for statistics driver
-	extern  void*	statcopy;
+		// for statistics driver
+		extern  void*	statcopy;
 
-	statcopy = (void*)atoi(myargv[p+1]);
-	printf ("External statistics registered.\n");
+		statcopy = (void*)atoi(myargv[p+1]);
+		printf ("External statistics registered.\n");
     }
 
     // start the apropriate game based on parms
@@ -1178,10 +1178,10 @@ void D_DoomMain (void)
 
     if ( gameaction != ga_loadgame )
     {
-	if (autostart || netgame)
-	    G_InitNew (startskill, startepisode, startmap);
-	else
-	    D_StartTitle ();                // start up intro loop
+		if (autostart || netgame)
+		    G_InitNew (startskill, startepisode, startmap);
+		else
+		    D_StartTitle ();                // start up intro loop
 
     }
 

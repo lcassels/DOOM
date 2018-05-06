@@ -52,7 +52,7 @@ enum { VERSION =  110 };
     else                                      \
       jprintf("*%s = [null deref]", #p);
 
-#define dpulse() jprintf("got here\n")
+#define dpulse() jprintf("got here")
 #define dnewline() fprintf(stderr, "\n")
 
 
