@@ -26,7 +26,65 @@ void I_InitGraphics (void) {
 
 void I_StartTic (void)
 {
-	// TODO: this should do input event handling
+	char c;
+	int n;
+	event_t event;
+	int key;
+
+	// jprintf("checking for input...");
+
+	while (true) {
+		n = sys_read(0, &c, 1);
+		if (n < 1) {
+			break;
+		}
+
+		key = 0;
+		switch (tolower(c)) {
+			case 'w':	// up
+				key = KEY_UPARROW;
+				break;
+			case 'a':	// left
+				key = KEY_LEFTARROW;
+				break;
+			case 's':	// down
+				key = KEY_DOWNARROW;
+				break;
+			case 'd':	// right
+				key = KEY_RIGHTARROW;
+				break;
+			case 'q':	// strafe left
+				key = ',';
+				break;
+			case 'e':	// strafe right
+				key = '.';
+				break;
+			case 'p':	// pause
+				key = KEY_PAUSE;
+				break;
+			case '\n':	// enter
+				key = KEY_ENTER;
+				break;
+			case ' ':	// use
+				key = ' ';
+				break;
+			case 'j':	// fire
+				key = KEY_RCTRL;
+				break;
+			default:
+				break;
+		}
+
+		if (key) {
+			event.data1 = key;
+			event.type = ev_keydown;
+			D_PostEvent(&event);
+			event.type = ev_keyup;
+			D_PostEvent(&event);
+		}
+	}
+
+	// jprintf("finished");
 }
 
 void I_ShutdownGraphics(void) {
