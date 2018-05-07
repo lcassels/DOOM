@@ -201,6 +201,8 @@ void S_Start(void)
   int cnum;
   int mnum;
 
+  return;
+
   // kill all playing sounds at start of level
   //  (trust me - a good idea)
   for (cnum=0 ; cnum<numChannels ; cnum++)

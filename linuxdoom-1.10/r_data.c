@@ -296,7 +296,7 @@ void R_GenerateComposite (int texnum)
 void R_GenerateLookup (int texnum)
 {
     texture_t*		texture;
-    byte*		patchcount;	// patchcount[texture->width]
+    // byte*		patchcount;	// patchcount[texture->width]
     texpatch_t*		patch;
     patch_t*		realpatch;
     int			x;
@@ -320,7 +320,7 @@ void R_GenerateLookup (int texnum)
     //  that are covered by more than one patch.
     // Fill in the lump / offset, so columns
     //  with only a single patch are all done.
-    patchcount = (byte *)alloca (texture->width);
+    byte patchcount[texture->width];
     memset (patchcount, 0, texture->width);
     patch = texture->patches;
 
@@ -445,18 +445,15 @@ void R_InitTextures (void)
 
     printf("\nRunning R_InitTextures");
 
-    dprintv(sizeof(maptexture_t), "%d");
-    dprintv(sizeof(texture_t), "%d");
-    dprintv(sizeof(mappatch_t), "%d");
-    dprintv(sizeof(texpatch_t), "%d");
-    fprintf(stderr, "\n");
-
     // Load the patch names from pnames.lmp.
     name[8] = 0;
     names = (char*) W_CacheLumpName ("PNAMES", PU_STATIC);
     nummappatches = LONG ( *((int *)names) );
     name_p = names+4;
+    // int patchlookup[nummappatches*sizeof(int)];
     patchlookup = (int*) alloca (nummappatches*sizeof(*patchlookup));
+    // sys_log_printf("sizeof(*patchlookup) = %d\n", sizeof(*patchlookup));
+
 
     for (i=0 ; i<nummappatches ; i++)
     {
@@ -757,9 +754,9 @@ int		spritememory;
 
 void R_PrecacheLevel (void)
 {
-    char*		flatpresent;
-    char*		texturepresent;
-    char*		spritepresent;
+    // char*		flatpresent;
+    // char*		texturepresent;
+    // char*		spritepresent;
 
     int			i;
     int			j;
@@ -774,7 +771,8 @@ void R_PrecacheLevel (void)
 	return;
 
     // Precache flats.
-    flatpresent = alloca(numflats);
+    char flatpresent[numflats];
+    // flatpresent = alloca(numflats);
     memset (flatpresent,0,numflats);
 
     for (i=0 ; i<numsectors ; i++)
@@ -796,7 +794,8 @@ void R_PrecacheLevel (void)
     }
 
     // Precache textures.
-    texturepresent = alloca(numtextures);
+    char texturepresent[numtextures];
+    // texturepresent = alloca(numtextures);
     memset (texturepresent,0, numtextures);
 
     for (i=0 ; i<numsides ; i++)
@@ -831,7 +830,8 @@ void R_PrecacheLevel (void)
     }
 
     // Precache sprites.
-    spritepresent = alloca(numsprites);
+    char spritepresent[numsprites];
+    // spritepresent = alloca(numsprites);
     memset (spritepresent,0, numsprites);
 
     for (th = thinkercap.next ; th != &thinkercap ; th=th->next)

@@ -110,6 +110,7 @@ void Z_Init (void)
     block->user = NULL;
 
     block->size = mainzone->size - sizeof(memzone_t);
+    sys_log_printf("[DOOM] Z_Init: mainzone @ %p\n", mainzone);
 }
 
 
@@ -123,8 +124,32 @@ void Z_Free (void* ptr)
 
     block = (memblock_t *) ( (byte *)ptr - sizeof(memblock_t));
 
-    if (block->id != ZONEID)
-	I_Error ("Z_Free: freed a pointer without ZONEID");
+// typedef struct memblock_s
+// {
+//     int			size;	// including the header and possibly tiny fragments
+//     void**		user;	// NULL if a free block
+//     int			tag;	// purgelevel
+//     int			id;	// should be ZONEID
+//     struct memblock_s*	next;
+//     struct memblock_s*	prev;
+// } memblock_t;
+
+    if (block->id != ZONEID) {
+    	sys_log_printf("[DOOM] Z_Free error: broken free on %p\n"
+    						"\tblock->size = %d\n"
+    						"\tblock->user = %p\n"
+    						"\t*block->user = %p\n"
+    						"\tblock->tag = %d\n"
+    						"\tblock->id = %d\n",
+    		ptr, block->size, block->user, *block->user, block->tag, block->id);
+    	uintptr_t rbp = read_rbp();
+	    uintptr_t* rbpx = reinterpret_cast<uintptr_t*>(rbp);
+	    uintptr_t ret_rip = rbpx[1];
+	    sys_log_printf("[DOOM] broken Z_Free called by func @ %p\n",
+        	ret_rip);
+    	return;
+    	I_Error ("Z_Free: freed a pointer without ZONEID");
+    }
 
     if (block->user > (void **)0x100)
     {

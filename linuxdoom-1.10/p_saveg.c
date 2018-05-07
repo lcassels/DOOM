@@ -46,6 +46,7 @@ void P_ArchivePlayers (void)
     int		i;
     int		j;
     player_t*	dest;
+    return;
 
     for (i=0 ; i<MAXPLAYERS ; i++)
     {
@@ -77,6 +78,8 @@ void P_UnArchivePlayers (void)
 {
     int		i;
     int		j;
+
+    return;
 
     for (i=0 ; i<MAXPLAYERS ; i++)
     {
@@ -116,6 +119,8 @@ void P_ArchiveWorld (void)
     line_t*		li;
     side_t*		si;
     short*		put;
+
+    return;
 
     put = (short *)save_p;
 
@@ -169,6 +174,8 @@ void P_UnArchiveWorld (void)
     line_t*		li;
     side_t*		si;
     short*		get;
+
+    return;
 
     get = (short *)save_p;
 
@@ -231,6 +238,8 @@ void P_ArchiveThinkers (void)
     thinker_t*		th;
     mobj_t*		mobj;
 
+    return;
+
     // save off the current thinkers
     for (th = thinkercap.next ; th != &thinkercap ; th=th->next)
     {
@@ -266,6 +275,8 @@ void P_UnArchiveThinkers (void)
     thinker_t*		currentthinker;
     thinker_t*		next;
     mobj_t*		mobj;
+
+    return;
 
     // remove all the current thinkers
     currentthinker = thinkercap.next;
@@ -360,6 +371,8 @@ void P_ArchiveSpecials (void)
     strobe_t*		strobe;
     glow_t*		glow;
     int			i;
+
+    return;
 
     // save off the current thinkers
     for (th = thinkercap.next ; th != &thinkercap ; th=th->next)
@@ -480,6 +493,7 @@ void P_UnArchiveSpecials (void)
     strobe_t*		strobe;
     glow_t*		glow;
 
+    return;
 
     // read in saved thinkers
     while (1)
