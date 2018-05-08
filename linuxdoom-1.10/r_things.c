@@ -130,7 +130,7 @@ R_InstallSpriteLump
 
 //     // Flip bit (1 = flip) to use for view angles 0-7.
 //     byte    flip[8];
-    
+
 // } spriteframe_t;
 
     if (lump == 742 && frame == 8 && rotation == 0) {
@@ -422,7 +422,10 @@ void R_DrawMaskedColumn (column_t* column)
 	    //  or (SHADOW) R_DrawFuzzColumn.
 	    colfunc ();
 	}
+
 	column = (column_t *)(  (byte *)column + column->length + 4);
+    // HACKIES SHIT OF MY LIFE XXXXXXXXX
+    if (column >= 0x4710001) { break; }
     }
 
     dc_texturemid = basetexturemid;
@@ -934,7 +937,6 @@ void R_DrawSprite (vissprite_t* spr)
 	    // seg is behind sprite
 	    continue;
 	}
-
 
 	// clip this piece of the sprite
 	silhouette = ds->silhouette;
