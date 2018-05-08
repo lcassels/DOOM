@@ -398,69 +398,69 @@ S_StartSound
 ( void*		origin,
   int		sfx_id )
 {
-#ifdef SAWDEBUG
-    // if (sfx_id == sfx_sawful)
-    // sfx_id = sfx_itemup;
-#endif
+// #ifdef SAWDEBUG
+//     // if (sfx_id == sfx_sawful)
+//     // sfx_id = sfx_itemup;
+// #endif
 
-    S_StartSoundAtVolume(origin, sfx_id, snd_SfxVolume);
+//     S_StartSoundAtVolume(origin, sfx_id, snd_SfxVolume);
 
 
-    // UNUSED. We had problems, had we not?
-#ifdef SAWDEBUG
-{
-    int i;
-    int n;
+//     // UNUSED. We had problems, had we not?
+// #ifdef SAWDEBUG
+// {
+//     int i;
+//     int n;
 
-    static mobj_t*      last_saw_origins[10] = {1,1,1,1,1,1,1,1,1,1};
-    static int		first_saw=0;
-    static int		next_saw=0;
+//     static mobj_t*      last_saw_origins[10] = {1,1,1,1,1,1,1,1,1,1};
+//     static int		first_saw=0;
+//     static int		next_saw=0;
 
-    if (sfx_id == sfx_sawidl
-	|| sfx_id == sfx_sawful
-	|| sfx_id == sfx_sawhit)
-    {
-	for (i=first_saw;i!=next_saw;i=(i+1)%10)
-	    if (last_saw_origins[i] != origin)
-		fprintf(stderr, "old origin 0x%lx != "
-			"origin 0x%lx for sfx %d\n",
-			last_saw_origins[i],
-			origin,
-			sfx_id);
+//     if (sfx_id == sfx_sawidl
+// 	|| sfx_id == sfx_sawful
+// 	|| sfx_id == sfx_sawhit)
+//     {
+// 	for (i=first_saw;i!=next_saw;i=(i+1)%10)
+// 	    if (last_saw_origins[i] != origin)
+// 		fprintf(stderr, "old origin 0x%lx != "
+// 			"origin 0x%lx for sfx %d\n",
+// 			last_saw_origins[i],
+// 			origin,
+// 			sfx_id);
 
-	last_saw_origins[next_saw] = origin;
-	next_saw = (next_saw + 1) % 10;
-	if (next_saw == first_saw)
-	    first_saw = (first_saw + 1) % 10;
+// 	last_saw_origins[next_saw] = origin;
+// 	next_saw = (next_saw + 1) % 10;
+// 	if (next_saw == first_saw)
+// 	    first_saw = (first_saw + 1) % 10;
 
-	for (n=i=0; i<numChannels ; i++)
-	{
-	    if (channels[i].sfxinfo == &S_sfx[sfx_sawidl]
-		|| channels[i].sfxinfo == &S_sfx[sfx_sawful]
-		|| channels[i].sfxinfo == &S_sfx[sfx_sawhit]) n++;
-	}
+// 	for (n=i=0; i<numChannels ; i++)
+// 	{
+// 	    if (channels[i].sfxinfo == &S_sfx[sfx_sawidl]
+// 		|| channels[i].sfxinfo == &S_sfx[sfx_sawful]
+// 		|| channels[i].sfxinfo == &S_sfx[sfx_sawhit]) n++;
+// 	}
 
-	if (n>1)
-	{
-	    for (i=0; i<numChannels ; i++)
-	    {
-		if (channels[i].sfxinfo == &S_sfx[sfx_sawidl]
-		    || channels[i].sfxinfo == &S_sfx[sfx_sawful]
-		    || channels[i].sfxinfo == &S_sfx[sfx_sawhit])
-		{
-		    fprintf(stderr,
-			    "chn: sfxinfo=0x%lx, origin=0x%lx, "
-			    "handle=%d\n",
-			    channels[i].sfxinfo,
-			    channels[i].origin,
-			    channels[i].handle);
-		}
-	    }
-	    fprintf(stderr, "\n");
-	}
-    }
-}
-#endif
+// 	if (n>1)
+// 	{
+// 	    for (i=0; i<numChannels ; i++)
+// 	    {
+// 		if (channels[i].sfxinfo == &S_sfx[sfx_sawidl]
+// 		    || channels[i].sfxinfo == &S_sfx[sfx_sawful]
+// 		    || channels[i].sfxinfo == &S_sfx[sfx_sawhit])
+// 		{
+// 		    fprintf(stderr,
+// 			    "chn: sfxinfo=0x%lx, origin=0x%lx, "
+// 			    "handle=%d\n",
+// 			    channels[i].sfxinfo,
+// 			    channels[i].origin,
+// 			    channels[i].handle);
+// 		}
+// 	    }
+// 	    fprintf(stderr, "\n");
+// 	}
+//     }
+// }
+// #endif
 
 }
 
@@ -470,16 +470,16 @@ S_StartSound
 void S_StopSound(void *origin)
 {
 
-    int cnum;
+ //    int cnum;
 
-    for (cnum=0 ; cnum<numChannels ; cnum++)
-    {
-	if (channels[cnum].sfxinfo && channels[cnum].origin == origin)
-	{
-	    S_StopChannel(cnum);
-	    break;
-	}
-    }
+ //    for (cnum=0 ; cnum<numChannels ; cnum++)
+ //    {
+	// if (channels[cnum].sfxinfo && channels[cnum].origin == origin)
+	// {
+	//     S_StopChannel(cnum);
+	//     break;
+	// }
+ //    }
 }
 
 
@@ -495,20 +495,20 @@ void S_StopSound(void *origin)
 //
 void S_PauseSound(void)
 {
-    if (mus_playing && !mus_paused)
-    {
-	I_PauseSong(mus_playing->handle);
-	mus_paused = true;
-    }
+ //    if (mus_playing && !mus_paused)
+ //    {
+	// I_PauseSong(mus_playing->handle);
+	// mus_paused = true;
+ //    }
 }
 
 void S_ResumeSound(void)
 {
-    if (mus_playing && mus_paused)
-    {
-	I_ResumeSong(mus_playing->handle);
-	mus_paused = false;
-    }
+ //    if (mus_playing && mus_paused)
+ //    {
+	// I_ResumeSong(mus_playing->handle);
+	// mus_paused = false;
+ //    }
 }
 
 
@@ -614,15 +614,15 @@ void S_UpdateSounds(void* listener_p)
 
 void S_SetMusicVolume(int volume)
 {
-    if (volume < 0 || volume > 127)
-    {
-	I_Error("Attempt to set music volume at %d",
-		volume);
-    }
+ //    if (volume < 0 || volume > 127)
+ //    {
+	// I_Error("Attempt to set music volume at %d",
+	// 	volume);
+ //    }
 
-    I_SetMusicVolume(127);
-    I_SetMusicVolume(volume);
-    snd_MusicVolume = volume;
+ //    I_SetMusicVolume(127);
+ //    I_SetMusicVolume(volume);
+ //    snd_MusicVolume = volume;
 }
 
 
@@ -630,10 +630,10 @@ void S_SetMusicVolume(int volume)
 void S_SetSfxVolume(int volume)
 {
 
-    if (volume < 0 || volume > 127)
-	I_Error("Attempt to set sfx volume at %d", volume);
+ //    if (volume < 0 || volume > 127)
+	// I_Error("Attempt to set sfx volume at %d", volume);
 
-    snd_SfxVolume = volume;
+ //    snd_SfxVolume = volume;
 
 }
 
@@ -642,7 +642,7 @@ void S_SetSfxVolume(int volume)
 //
 void S_StartMusic(int m_id)
 {
-    S_ChangeMusic(m_id, false);
+    // S_ChangeMusic(m_id, false);
 }
 
 void
@@ -650,55 +650,55 @@ S_ChangeMusic
 ( int			musicnum,
   int			looping )
 {
-    musicinfo_t*	music;
-    char		namebuf[9];
+ //    musicinfo_t*	music;
+ //    char		namebuf[9];
 
-    if ( (musicnum <= mus_None)
-	 || (musicnum >= NUMMUSIC) )
-    {
-	I_Error("Bad music number %d", musicnum);
-    }
-    else
-	music = &S_music[musicnum];
+ //    if ( (musicnum <= mus_None)
+	//  || (musicnum >= NUMMUSIC) )
+ //    {
+	// I_Error("Bad music number %d", musicnum);
+ //    }
+ //    else
+	// music = &S_music[musicnum];
 
-    if (mus_playing == music)
-	return;
+ //    if (mus_playing == music)
+	// return;
 
-    // shutdown old music
-    S_StopMusic();
+ //    // shutdown old music
+ //    S_StopMusic();
 
-    // get lumpnum if neccessary
-    if (!music->lumpnum)
-    {
-	sprintf(namebuf, "d_%s", music->name);
-	music->lumpnum = W_GetNumForName(namebuf);
-    }
+ //    // get lumpnum if neccessary
+ //    if (!music->lumpnum)
+ //    {
+	// sprintf(namebuf, "d_%s", music->name);
+	// music->lumpnum = W_GetNumForName(namebuf);
+ //    }
 
-    // load & register it
-    music->data = (void *) W_CacheLumpNum(music->lumpnum, PU_MUSIC);
-    music->handle = I_RegisterSong(music->data);
+ //    // load & register it
+ //    music->data = (void *) W_CacheLumpNum(music->lumpnum, PU_MUSIC);
+ //    music->handle = I_RegisterSong(music->data);
 
-    // play it
-    I_PlaySong(music->handle, looping);
+ //    // play it
+ //    I_PlaySong(music->handle, looping);
 
-    mus_playing = music;
+ //    mus_playing = music;
 }
 
 
 void S_StopMusic(void)
 {
-    if (mus_playing)
-    {
-	if (mus_paused)
-	    I_ResumeSong(mus_playing->handle);
+ //    if (mus_playing)
+ //    {
+	// if (mus_paused)
+	//     I_ResumeSong(mus_playing->handle);
 
-	I_StopSong(mus_playing->handle);
-	I_UnRegisterSong(mus_playing->handle);
-	Z_ChangeTag(mus_playing->data, PU_CACHE);
+	// I_StopSong(mus_playing->handle);
+	// I_UnRegisterSong(mus_playing->handle);
+	// Z_ChangeTag(mus_playing->data, PU_CACHE);
 
-	mus_playing->data = 0;
-	mus_playing = 0;
-    }
+	// mus_playing->data = 0;
+	// mus_playing = 0;
+ //    }
 }
 
 
@@ -707,37 +707,37 @@ void S_StopMusic(void)
 void S_StopChannel(int cnum)
 {
 
-    int		i;
-    channel_t*	c = &channels[cnum];
+//     int		i;
+//     channel_t*	c = &channels[cnum];
 
-    if (c->sfxinfo)
-    {
-	// stop the sound playing
-	if (I_SoundIsPlaying(c->handle))
-	{
-#ifdef SAWDEBUG
-	    if (c->sfxinfo == &S_sfx[sfx_sawful])
-		fprintf(stderr, "stopped\n");
-#endif
-	    I_StopSound(c->handle);
-	}
+//     if (c->sfxinfo)
+//     {
+// 	// stop the sound playing
+// 	if (I_SoundIsPlaying(c->handle))
+// 	{
+// #ifdef SAWDEBUG
+// 	    if (c->sfxinfo == &S_sfx[sfx_sawful])
+// 		fprintf(stderr, "stopped\n");
+// #endif
+// 	    I_StopSound(c->handle);
+// 	}
 
-	// check to see
-	//  if other channels are playing the sound
-	for (i=0 ; i<numChannels ; i++)
-	{
-	    if (cnum != i
-		&& c->sfxinfo == channels[i].sfxinfo)
-	    {
-		break;
-	    }
-	}
+// 	// check to see
+// 	//  if other channels are playing the sound
+// 	for (i=0 ; i<numChannels ; i++)
+// 	{
+// 	    if (cnum != i
+// 		&& c->sfxinfo == channels[i].sfxinfo)
+// 	    {
+// 		break;
+// 	    }
+// 	}
 
-	// degrade usefulness of sound data
-	c->sfxinfo->usefulness--;
+// 	// degrade usefulness of sound data
+// 	c->sfxinfo->usefulness--;
 
-	c->sfxinfo = 0;
-    }
+// 	c->sfxinfo = 0;
+//     }
 }
 
 
@@ -756,64 +756,64 @@ S_AdjustSoundParams
   int*		sep,
   int*		pitch )
 {
-    fixed_t	approx_dist;
-    fixed_t	adx;
-    fixed_t	ady;
-    angle_t	angle;
+ //    fixed_t	approx_dist;
+ //    fixed_t	adx;
+ //    fixed_t	ady;
+ //    angle_t	angle;
 
-    // calculate the distance to sound origin
-    //  and clip it if necessary
-    adx = abs(listener->x - source->x);
-    ady = abs(listener->y - source->y);
+ //    // calculate the distance to sound origin
+ //    //  and clip it if necessary
+ //    adx = abs(listener->x - source->x);
+ //    ady = abs(listener->y - source->y);
 
-    // From _GG1_ p.428. Appox. eucledian distance fast.
-    approx_dist = adx + ady - ((adx < ady ? adx : ady)>>1);
+ //    // From _GG1_ p.428. Appox. eucledian distance fast.
+ //    approx_dist = adx + ady - ((adx < ady ? adx : ady)>>1);
 
-    if (gamemap != 8
-	&& approx_dist > S_CLIPPING_DIST)
-    {
-	return 0;
-    }
+ //    if (gamemap != 8
+	// && approx_dist > S_CLIPPING_DIST)
+ //    {
+	// return 0;
+ //    }
 
-    // angle of source to listener
-    angle = R_PointToAngle2(listener->x,
-			    listener->y,
-			    source->x,
-			    source->y);
+ //    // angle of source to listener
+ //    angle = R_PointToAngle2(listener->x,
+	// 		    listener->y,
+	// 		    source->x,
+	// 		    source->y);
 
-    if (angle > listener->angle)
-	angle = angle - listener->angle;
-    else
-	angle = angle + (0xffffffff - listener->angle);
+ //    if (angle > listener->angle)
+	// angle = angle - listener->angle;
+ //    else
+	// angle = angle + (0xffffffff - listener->angle);
 
-    angle >>= ANGLETOFINESHIFT;
+ //    angle >>= ANGLETOFINESHIFT;
 
-    // stereo separation
-    *sep = 128 - (FixedMul(S_STEREO_SWING,finesine[angle])>>FRACBITS);
+ //    // stereo separation
+ //    *sep = 128 - (FixedMul(S_STEREO_SWING,finesine[angle])>>FRACBITS);
 
-    // volume calculation
-    if (approx_dist < S_CLOSE_DIST)
-    {
-	*vol = snd_SfxVolume;
-    }
-    else if (gamemap == 8)
-    {
-	if (approx_dist > S_CLIPPING_DIST)
-	    approx_dist = S_CLIPPING_DIST;
+ //    // volume calculation
+ //    if (approx_dist < S_CLOSE_DIST)
+ //    {
+	// *vol = snd_SfxVolume;
+ //    }
+ //    else if (gamemap == 8)
+ //    {
+	// if (approx_dist > S_CLIPPING_DIST)
+	//     approx_dist = S_CLIPPING_DIST;
 
-	*vol = 15+ ((snd_SfxVolume-15)
-		    *((S_CLIPPING_DIST - approx_dist)>>FRACBITS))
-	    / S_ATTENUATOR;
-    }
-    else
-    {
-	// distance effect
-	*vol = (snd_SfxVolume
-		* ((S_CLIPPING_DIST - approx_dist)>>FRACBITS))
-	    / S_ATTENUATOR;
-    }
+	// *vol = 15+ ((snd_SfxVolume-15)
+	// 	    *((S_CLIPPING_DIST - approx_dist)>>FRACBITS))
+	//     / S_ATTENUATOR;
+ //    }
+ //    else
+ //    {
+	// // distance effect
+	// *vol = (snd_SfxVolume
+	// 	* ((S_CLIPPING_DIST - approx_dist)>>FRACBITS))
+	//     / S_ATTENUATOR;
+ //    }
 
-    return (*vol > 0);
+ //    return (*vol > 0);
 }
 
 
@@ -828,49 +828,49 @@ S_getChannel
 ( void*		origin,
   sfxinfo_t*	sfxinfo )
 {
-    // channel number to use
-    int		cnum;
+ //    // channel number to use
+ //    int		cnum;
 
-    channel_t*	c;
+ //    channel_t*	c;
 
-    // Find an open channel
-    for (cnum=0 ; cnum<numChannels ; cnum++)
-    {
-	if (!channels[cnum].sfxinfo)
-	    break;
-	else if (origin &&  channels[cnum].origin ==  origin)
-	{
-	    S_StopChannel(cnum);
-	    break;
-	}
-    }
+ //    // Find an open channel
+ //    for (cnum=0 ; cnum<numChannels ; cnum++)
+ //    {
+	// if (!channels[cnum].sfxinfo)
+	//     break;
+	// else if (origin &&  channels[cnum].origin ==  origin)
+	// {
+	//     S_StopChannel(cnum);
+	//     break;
+	// }
+ //    }
 
-    // None available
-    if (cnum == numChannels)
-    {
-	// Look for lower priority
-	for (cnum=0 ; cnum<numChannels ; cnum++)
-	    if (channels[cnum].sfxinfo->priority >= sfxinfo->priority) break;
+ //    // None available
+ //    if (cnum == numChannels)
+ //    {
+	// // Look for lower priority
+	// for (cnum=0 ; cnum<numChannels ; cnum++)
+	//     if (channels[cnum].sfxinfo->priority >= sfxinfo->priority) break;
 
-	if (cnum == numChannels)
-	{
-	    // FUCK!  No lower priority.  Sorry, Charlie.
-	    return -1;
-	}
-	else
-	{
-	    // Otherwise, kick out lower priority.
-	    S_StopChannel(cnum);
-	}
-    }
+	// if (cnum == numChannels)
+	// {
+	//     // FUCK!  No lower priority.  Sorry, Charlie.
+	//     return -1;
+	// }
+	// else
+	// {
+	//     // Otherwise, kick out lower priority.
+	//     S_StopChannel(cnum);
+	// }
+ //    }
 
-    c = &channels[cnum];
+ //    c = &channels[cnum];
 
-    // channel is decided to be cnum.
-    c->sfxinfo = sfxinfo;
-    c->origin = origin;
+ //    // channel is decided to be cnum.
+ //    c->sfxinfo = sfxinfo;
+ //    c->origin = origin;
 
-    return cnum;
+ //    return cnum;
 }
 
 
