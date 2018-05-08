@@ -475,7 +475,7 @@ S_StartSound
 void S_StopSound(void *origin)
 {
 
- //    int cnum;
+    int cnum;
 
     return;
 
@@ -711,6 +711,7 @@ void S_StopMusic(void)
     {
 	if (mus_paused)
 	    I_ResumeSong(mus_playing->handle);
+    }
 
 	// I_StopSong(mus_playing->handle);
 	// I_UnRegisterSong(mus_playing->handle);
@@ -727,7 +728,7 @@ void S_StopMusic(void)
 void S_StopChannel(int cnum)
 {
 
-  return;
+    return;
 
     int		i;
     channel_t*	c = &channels[cnum];
@@ -778,10 +779,10 @@ S_AdjustSoundParams
   int*		sep,
   int*		pitch )
 {
- //    fixed_t	approx_dist;
- //    fixed_t	adx;
- //    fixed_t	ady;
- //    angle_t	angle;
+    fixed_t	approx_dist;
+    fixed_t	adx;
+    fixed_t	ady;
+    angle_t	angle;
 
     return 1;
 
