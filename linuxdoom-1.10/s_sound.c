@@ -161,6 +161,8 @@ void S_Init
 {
   int		i;
 
+  return;
+
   fprintf( stderr, "S_Init: default sfx volume %d\n", sfxVolume);
 
   // Whatever these did with DMX, these are rather dummies now.
@@ -256,6 +258,8 @@ S_StartSoundAtVolume
   int		sfx_id,
   int		volume )
 {
+
+  return;
 
   int		rc;
   int		sep;
@@ -398,6 +402,7 @@ S_StartSound
 ( void*		origin,
   int		sfx_id )
 {
+  return;
 #ifdef SAWDEBUG
     // if (sfx_id == sfx_sawful)
     // sfx_id = sfx_itemup;
@@ -472,6 +477,8 @@ void S_StopSound(void *origin)
 
     int cnum;
 
+    return;
+
     for (cnum=0 ; cnum<numChannels ; cnum++)
     {
 	if (channels[cnum].sfxinfo && channels[cnum].origin == origin)
@@ -495,6 +502,7 @@ void S_StopSound(void *origin)
 //
 void S_PauseSound(void)
 {
+  return;
     if (mus_playing && !mus_paused)
     {
 	I_PauseSong(mus_playing->handle);
@@ -504,6 +512,7 @@ void S_PauseSound(void)
 
 void S_ResumeSound(void)
 {
+  return;
     if (mus_playing && mus_paused)
     {
 	I_ResumeSong(mus_playing->handle);
@@ -517,6 +526,7 @@ void S_ResumeSound(void)
 //
 void S_UpdateSounds(void* listener_p)
 {
+  return;
  //    int		audible;
  //    int		cnum;
  //    int		volume;
@@ -614,6 +624,8 @@ void S_UpdateSounds(void* listener_p)
 
 void S_SetMusicVolume(int volume)
 {
+  return;
+
     if (volume < 0 || volume > 127)
     {
 	I_Error("Attempt to set music volume at %d",
@@ -629,6 +641,8 @@ void S_SetMusicVolume(int volume)
 
 void S_SetSfxVolume(int volume)
 {
+
+  return;
 
     if (volume < 0 || volume > 127)
 	I_Error("Attempt to set sfx volume at %d", volume);
@@ -650,6 +664,9 @@ S_ChangeMusic
 ( int			musicnum,
   int			looping )
 {
+
+  return;
+
     musicinfo_t*	music;
     char		namebuf[9];
 
@@ -687,6 +704,9 @@ S_ChangeMusic
 
 void S_StopMusic(void)
 {
+
+  return;
+
     if (mus_playing)
     {
 	if (mus_paused)
@@ -706,6 +726,8 @@ void S_StopMusic(void)
 
 void S_StopChannel(int cnum)
 {
+
+  return;
 
     int		i;
     channel_t*	c = &channels[cnum];
@@ -760,6 +782,8 @@ S_AdjustSoundParams
     fixed_t	adx;
     fixed_t	ady;
     angle_t	angle;
+
+    return 1;
 
     // calculate the distance to sound origin
     //  and clip it if necessary
@@ -830,6 +854,8 @@ S_getChannel
 {
     // channel number to use
     int		cnum;
+
+    return 0;
 
     channel_t*	c;
 
