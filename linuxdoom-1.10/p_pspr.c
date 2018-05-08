@@ -311,11 +311,11 @@ A_WeaponReady
     //  the missile launcher and bfg do not auto fire
     if (player->cmd.buttons & BT_ATTACK)
     {
-	if ( !player->attackdown
-	     || (player->readyweapon != wp_missile
-		 && player->readyweapon != wp_bfg) )
-	{
-	    player->attackdown = true;
+    if ( !player->attackdown
+         || (player->readyweapon != wp_missile
+         && player->readyweapon != wp_bfg) )
+    {
+        player->attackdown = true;
 	    P_FireWeapon (player);
 	    return;
 	}

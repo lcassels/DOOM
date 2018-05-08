@@ -26,18 +26,25 @@ void I_InitGraphics (void) {
 
 void I_StartTic (void)
 {
-	char c;
+	int c;
 	int n;
 	event_t event;
 	int key;
 
-	// jprintf("checking for input...");
+    // jprintf("checking for input...");
 
-	while (true) {
-		n = sys_read(0, &c, 1);
-		if (n < 1) {
-			break;
-		}
+    while (true) {
+        int release = 0;
+
+		n = sys_read(0, reinterpret_cast<char*>(&c), 1);
+        if (n < 1) {
+            break;
+        }
+
+        if (c > 256) {
+            c -= 256;
+            release = 1;
+        }
 
 		key = 0;
 		switch (tolower(c)) {
@@ -71,16 +78,24 @@ void I_StartTic (void)
 			case 'j':	// fire
 				key = KEY_RCTRL;
 				break;
+            case 27:  // escape
+                key = KEY_ESCAPE;
+                break;
 			default:
+                key = tolower(c);
 				break;
 		}
 
 		if (key) {
-			event.data1 = key;
-			event.type = ev_keydown;
-			D_PostEvent(&event);
-			event.type = ev_keyup;
-			D_PostEvent(&event);
+            event.data1 = key;
+            if (release) {
+                event.type = ev_keyup;
+                D_PostEvent(&event);
+            }
+            else {
+                event.type = ev_keydown;
+                D_PostEvent(&event);
+            }
 		}
 	}
 

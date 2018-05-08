@@ -473,75 +473,75 @@ void CheckAbort (void)
 //
 void D_ArbitrateNetStart (void)
 {
-//     int		i;
-//     boolean	gotinfo[MAXNETNODES];
+    int		i;
+    boolean	gotinfo[MAXNETNODES];
 
-//     autostart = true;
-//     memset (gotinfo,0,sizeof(gotinfo));
+    autostart = true;
+    memset (gotinfo,0,sizeof(gotinfo));
 
-//     if (doomcom->consoleplayer)
-//     {
-// 	// listen for setup info from key player
-// 	printf ("listening for network start info...\n");
-// 	while (1)
-// 	{
-// 	    CheckAbort ();
-// 	    if (!HGetPacket ())
-// 		continue;
-// 	    if (netbuffer->checksum & NCMD_SETUP)
-// 	    {
-// 		if (netbuffer->player != VERSION)
-// 		    I_Error ("Different DOOM versions cannot play a net game!");
-// 		startskill = netbuffer->retransmitfrom & 15;
-// 		deathmatch = (netbuffer->retransmitfrom & 0xc0) >> 6;
-// 		nomonsters = (netbuffer->retransmitfrom & 0x20) > 0;
-// 		respawnparm = (netbuffer->retransmitfrom & 0x10) > 0;
-// 		startmap = netbuffer->starttic & 0x3f;
-// 		startepisode = netbuffer->starttic >> 6;
-// 		return;
-// 	    }
-// 	}
-//     }
-//     else
-//     {
-// 	// key player, send the setup info
-// 	printf ("sending network start info...\n");
-// 	do
-// 	{
-// 	    CheckAbort ();
-// 	    for (i=0 ; i<doomcom->numnodes ; i++)
-// 	    {
-// 		netbuffer->retransmitfrom = startskill;
-// 		if (deathmatch)
-// 		    netbuffer->retransmitfrom |= (deathmatch<<6);
-// 		if (nomonsters)
-// 		    netbuffer->retransmitfrom |= 0x20;
-// 		if (respawnparm)
-// 		    netbuffer->retransmitfrom |= 0x10;
-// 		netbuffer->starttic = startepisode * 64 + startmap;
-// 		netbuffer->player = VERSION;
-// 		netbuffer->numtics = 0;
-// 		HSendPacket (i, NCMD_SETUP);
-// 	    }
+    if (doomcom->consoleplayer)
+    {
+	// listen for setup info from key player
+	printf ("listening for network start info...\n");
+	while (1)
+	{
+	    CheckAbort ();
+	    if (!HGetPacket ())
+		continue;
+	    if (netbuffer->checksum & NCMD_SETUP)
+	    {
+		if (netbuffer->player != VERSION)
+		    I_Error ("Different DOOM versions cannot play a net game!");
+		startskill = netbuffer->retransmitfrom & 15;
+		deathmatch = (netbuffer->retransmitfrom & 0xc0) >> 6;
+		nomonsters = (netbuffer->retransmitfrom & 0x20) > 0;
+		respawnparm = (netbuffer->retransmitfrom & 0x10) > 0;
+		startmap = netbuffer->starttic & 0x3f;
+		startepisode = netbuffer->starttic >> 6;
+		return;
+	    }
+	}
+    }
+    else
+    {
+	// key player, send the setup info
+	printf ("sending network start info...\n");
+	do
+	{
+	    CheckAbort ();
+	    for (i=0 ; i<doomcom->numnodes ; i++)
+	    {
+		netbuffer->retransmitfrom = startskill;
+		if (deathmatch)
+		    netbuffer->retransmitfrom |= (deathmatch<<6);
+		if (nomonsters)
+		    netbuffer->retransmitfrom |= 0x20;
+		if (respawnparm)
+		    netbuffer->retransmitfrom |= 0x10;
+		netbuffer->starttic = startepisode * 64 + startmap;
+		netbuffer->player = VERSION;
+		netbuffer->numtics = 0;
+		HSendPacket (i, NCMD_SETUP);
+	    }
 
-// #if 1
-// 	    for(i = 10 ; i  &&  HGetPacket(); --i)
-// 	    {
-// 		if((netbuffer->player&0x7f) < MAXNETNODES)
-// 		    gotinfo[netbuffer->player&0x7f] = true;
-// 	    }
-// #else
-// 	    while (HGetPacket ())
-// 	    {
-// 		gotinfo[netbuffer->player&0x7f] = true;
-// 	    }
-// #endif
+#if 1
+	    for(i = 10 ; i  &&  HGetPacket(); --i)
+	    {
+		if((netbuffer->player&0x7f) < MAXNETNODES)
+		    gotinfo[netbuffer->player&0x7f] = true;
+	    }
+#else
+	    while (HGetPacket ())
+	    {
+		gotinfo[netbuffer->player&0x7f] = true;
+	    }
+#endif
 
-// 	    for (i=1 ; i<doomcom->numnodes ; i++)
-// 		if (!gotinfo[i])
-// 		    break;
-// 	} while (i < doomcom->numnodes);
-//     }
+	    for (i=1 ; i<doomcom->numnodes ; i++)
+		if (!gotinfo[i])
+		    break;
+	} while (i < doomcom->numnodes);
+    }
 }
 
 //
