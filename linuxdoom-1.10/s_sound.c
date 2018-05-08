@@ -474,7 +474,7 @@ S_StartSound
 
 void S_StopSound(void *origin)
 {
-
+    return;
     int cnum;
 
     return;

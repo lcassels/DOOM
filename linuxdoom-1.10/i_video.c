@@ -78,6 +78,9 @@ void I_StartTic (void)
 			case 'j':	// fire
 				key = KEY_RCTRL;
 				break;
+            case '/':   // run
+                key = KEY_RSHIFT;
+                break;
             case 27:  // escape
                 key = KEY_ESCAPE;
                 break;
