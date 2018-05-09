@@ -92,7 +92,7 @@ int  I_GetTime (void)
     static int		basetime=0;
 
     // gettimeofday(&tp, &tzp);
-    int time = (int) sys_getticks();
+    int time = (int) sys_getticks() / 2;
     if (!basetime)
 	   basetime = time;
     // newtics = (tp.tv_sec-basetime)*TICRATE + tp.tv_usec*TICRATE/1000000;
