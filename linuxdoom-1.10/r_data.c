@@ -531,7 +531,8 @@ void R_InitTextures (void)
     		      + sizeof(texpatch_t)*(SHORT(mtexture->patchcount)-1),
     		      PU_STATIC, 0);
 
-    	texture->width = SHORT(mtexture->width);
+        // HACK SWITCHED WIDTH TO HEIGHT XXXXXX
+    	texture->width = SHORT(mtexture->height);
     	texture->height = SHORT(mtexture->height);
     	texture->patchcount = SHORT(mtexture->patchcount);
 
