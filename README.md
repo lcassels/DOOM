@@ -2,7 +2,7 @@
 
 ![DOOM Title Screen](doc/titlescreen.jpg)
 
-This is a port of id Software's 1997 DOOM Linux port to Harvard's Operating Systems class teaching OS, done by Lucas Cassels and Max Levenson as our final project. See our [PugOS repo](https://github.com/CS161/PugOS) for the modified teaching OS build which runs this DOOM port!
+This is a port of id Software's 1997 DOOM Linux port to Harvard's Operating Systems class teaching OS done by Lucas Cassels and Max Levenson as our final project. See our [PugOS repo](https://github.com/CS161/PugOS) for the modified teaching OS build that runs this DOOM port!
 
 
 Major changes:
