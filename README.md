@@ -1,6 +1,6 @@
 # PugOS DOOM Port
 
-This is a port of id Software's 1997 DOOM Linux port to Harvard's Operating Systems class teaching OS, done by Lucas Cassels and Max Levenson as our final project. See our [PugOS repo](pug) for the modified teaching OS build which runs this DOOM port!
+This is a port of id Software's 1997 DOOM Linux port to Harvard's Operating Systems class teaching OS, done by Lucas Cassels and Max Levenson as our final project. See our [PugOS repo](https://github.com/CS161/PugOS) for the modified teaching OS build which runs this DOOM port!
 
 
 Major changes:
@@ -20,7 +20,7 @@ Major changes:
 
 ## Running the game
 
-Instructions for running the port in PugOS are in the [PugOS repo](pug) readme.
+Instructions for running the port in PugOS are in the [PugOS repo](https://github.com/CS161/PugOS) readme.
 
 
 To run the 32-bit and 64-bit Linux builds, see the Linux branch section below.
@@ -32,6 +32,3 @@ To aid in the porting process we've maintained a branch (named `x11`) that runs 
 
 
 To run the Linux build, switch to the `x11` branch and run `make run32` or `make run64` from within the linuxdoom-1.10 directory and the makefile will build the code, start up a 320x200x8 X screen, and run the game for you!
-
-
-[pug]: https://github.com/CS161/PugOS
