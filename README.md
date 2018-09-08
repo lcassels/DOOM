@@ -4,7 +4,7 @@ This is a port of id Software's 1997 DOOM Linux port to Harvard's Operating Syst
 
 
 Major changes:
-- Added support for targetting 32-bit or 64-bit architectures (originally only supported 32-bit)
+- Added support for targeting 64-bit architectures (required by PugOS)
 - Rewrote input and rendering systems to work with PugOS
 - Ported code from C to C++
 - Replaced some Linux syscalls with equivalent PugOS syscalls
