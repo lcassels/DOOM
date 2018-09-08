@@ -1,5 +1,7 @@
 # PugOS DOOM Port
 
+![DOOM Title Screen](doc/titlescreen.jpg)
+
 This is a port of id Software's 1997 DOOM Linux port to Harvard's Operating Systems class teaching OS, done by Lucas Cassels and Max Levenson as our final project. See our [PugOS repo](https://github.com/CS161/PugOS) for the modified teaching OS build which runs this DOOM port!
 
 
@@ -9,8 +11,6 @@ Major changes:
 - Ported code from C to C++
 - Replaced some Linux syscalls with equivalent PugOS syscalls
 - Game saving/loading, sound, and networking are disabled due to OS limitations
-
-![DOOM Title Screen](doc/titlescreen.jpg)
 
 
 ## Dependencies
